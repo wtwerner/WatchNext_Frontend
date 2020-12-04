@@ -7,6 +7,7 @@ document.addEventListener("DOMContentLoaded", function(event){
     const form = document.getElementById('form');
     const search = document.getElementById('movie-search');
 
+    
     form.addEventListener('click', function(event) {
         event.preventDefault();
 
@@ -21,10 +22,33 @@ document.addEventListener("DOMContentLoaded", function(event){
         // }
     }, false);
 
+    function createMovieCard(movie) {
+        let div = document.createElement("div")
+        let main = document.getElementById("main")
+        let pTag = document.createElement("p")
+        div.className = "card"
+        pTag.innerHTML = movie.attributes.tmdb_id
+    
+        let addToWatchButton = document.createElement("button")
+        addToWatchButton.innerHTML = "Add to Watch List"
+    
+        div.appendChild(pTag)
+        div.appendChild(addToWatchButton)
+        main.appendChild(div)
+    }
+
     function fetchMovies() {
-        fetch(`${BACKEND_URL}/movies`)
-        .then(response => response.json())
-        .then(parsedResponse => console.log(parsedResponse));
+        return fetch(BACKEND_URL+'/movies')
+        .then(function(response) {
+            return response.json()
+        })
+        .then(function(json) {
+            let movies = json['data']
+            movies.forEach(movie => {
+                createMovieCard(movie)
+                console.log(movie)
+            })
+        })
     }
 
     fetchMovies()
