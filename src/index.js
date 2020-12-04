@@ -23,8 +23,8 @@ document.addEventListener("DOMContentLoaded", function(event){
     }, false);
 
     function createMovieCard(movie) {
-        let div = document.createElement("div")
         let main = document.getElementById("main")
+        let div = document.createElement("div")
         let pTag = document.createElement("p")
         div.className = "card"
         pTag.innerHTML = movie.attributes.tmdb_id
