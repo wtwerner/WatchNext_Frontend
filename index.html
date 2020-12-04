@@ -4,34 +4,38 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>WatchNext</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+    <link rel="stylesheet" href="src/main.css">
     <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
   </head>
   <body>
-    <div class="container">
-        <h1 class="title">
-            WatchNext
-        </h1>
-        <p class="subtitle">
-            Keep track of movies you want to watch!
-        </p>
-    </div>
-    <br>
-    <div class="container">
-        <div class="field has-addons" id="form">
-            <div class="control">
-            <input class="input" id="movie-search" type="text" placeholder="Find a Movie">
-            </div>
-            <div class="control">
-                <a class="button is-info" id="search">
-                    Search
-                </a>
+      <section class="section">
+        <div class="container">
+            <h1 class="title">
+                WatchNext
+            </h1>
+            <p class="subtitle">
+                Keep track of movies you want to watch!
+            </p>
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <div class="field has-addons" id="form">
+                <div class="control">
+                <input class="input" id="movie-search" type="text" placeholder="Find a Movie">
+                </div>
+                <div class="control">
+                    <a class="button is-info" id="search">
+                        Search
+                    </a>
+                </div>
             </div>
         </div>
-    </div>
-    <br><br><br>
-    <div class="container">
-        <main id="main" class="columns is-multiline"></main>
-    </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            <main id="main" class="columns is-multiline"></main>
+        </div>
+    </section>
   </body>
 </html>
