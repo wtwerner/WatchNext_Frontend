@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function(event){
         //add real image source
         // img.src = IMG_URL + movie.imgsource;
         div.className = "card";
-        pTag.innerHTML = movie.attributes.tmdb_id
+        pTag.innerHTML = movie.title
     
         let watchedButton = document.createElement("button")
         watchedButton.innerHTML = "Watched"
@@ -66,7 +66,6 @@ document.addEventListener("DOMContentLoaded", function(event){
             return response.json()
         })
         .then(function(json) {
-            console.log(json)
             let movies = json['data']
             fetchMovieData(movies)
         })
@@ -77,7 +76,8 @@ document.addEventListener("DOMContentLoaded", function(event){
             return fetch(TMDB_URL+movie.attributes.tmdb_id+TMDB_APPEND)
             .then(function(response) {
                 return response.json()
-            }).then(function(json) {
+            })
+            .then(function(json) {
                 createMovieCard(json)
             })
         })
