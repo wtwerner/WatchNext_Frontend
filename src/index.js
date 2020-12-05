@@ -7,6 +7,17 @@ document.addEventListener("DOMContentLoaded", function(event){
     const form = document.getElementById('form');
     const search = document.getElementById('movie-search');
 
+    class Movie {
+        constructor(tmdb_id, title, year, poster_url, watched, to_watch, rating) {
+            this.tmdb_id = tmdb_id;
+            this.title = title;
+            this.year = year;
+            this.poster_url = poster_url;
+            this.watched = watched;
+            this.to_watch = to_watch;
+            this.rating = rating;
+        }
+    }
     
     form.addEventListener('click', function(event) {
         event.preventDefault();
