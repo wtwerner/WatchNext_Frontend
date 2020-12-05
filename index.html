@@ -8,7 +8,7 @@
     <script type="application/javascript" src="src/index.js" charset="UTF-8"></script>
   </head>
   <body>
-      <section class="section">
+    <section class="section">
         <div class="container">
             <h1 class="title">
                 WatchNext
@@ -19,26 +19,24 @@
         </div>
     </section>
     <section class="section">
-        <div class="container">
-            <div class="field has-addons" id="form">
-                <div class="control">
-                <input class="input" id="movie-search" type="text" placeholder="Find a Movie">
+        <div class="columns">
+            <div class="column">
+                <div class="field has-addons" id="form">
+                    <div class="control is-expanded">
+                    <input class="input" id="movie-search" type="text" placeholder="Find a Movie">
+                    </div>
+                    <div class="control">
+                        <a class="button is-info" id="search">
+                            Search
+                        </a>
+                    </div>
                 </div>
-                <div class="control">
-                    <a class="button is-info" id="search">
-                        Search
-                    </a>
-                </div>
+                <div id="search-results"></div>
             </div>
-        </div>
-    </section>
-    <section class="section">
-        <div class="container" id="search-results">
-        </div>
-    </section>
-    <section class="section">
-        <div class="container">
-            <main id="main" class="columns is-multiline"></main>
+            <div class="column">
+                <h2 class="title">Watch List</h2>
+                <main id="main"></main>
+            </div>
         </div>
     </section>
   </body>
