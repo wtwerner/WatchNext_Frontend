@@ -125,16 +125,22 @@ document.addEventListener("DOMContentLoaded", function(){
     }}
 
     function addToWatchList(id) {
-        fetch(BACKEND_URL+`/movies/${id}`, {
-            method: 'PATCH',
+        fetch(BACKEND_URL+`/movies`, {
+            method: 'POST',
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json"
             },
 
             body: JSON.stringify({
-                "to_watch": true
+                "tmdb_id": id,
+                "to_watch": true,
+                "watched": false
             })
+        })
+        .then (response => response.json())
+        .then (json => {
+            fetchMovieData(json['data'])
         })
     }
 
