@@ -29,11 +29,17 @@ document.addEventListener("DOMContentLoaded", function(event){
         div.className = "card"
         pTag.innerHTML = movie.attributes.tmdb_id
     
-        let addToWatchButton = document.createElement("button")
-        addToWatchButton.innerHTML = "Add to Watch List"
+        let watchedButton = document.createElement("button")
+        watchedButton.innerHTML = "Watched"
+        watchedButton.className = "button is-small"
+
+        let removeButton = document.createElement("button")
+        removeButton.innerHTML = "Remove"
+        removeButton.className = "button is-small"
     
         div.appendChild(pTag)
-        div.appendChild(addToWatchButton)
+        div.appendChild(watchedButton)
+        div.appendChild(removeButton)
         main.appendChild(div)
     }
 

@@ -4031,8 +4031,7 @@ a.list-item {
   display: flex;
   flex-direction: column;
   max-height: calc(100vh - 40px);
-  overflow: hidden;
-  -ms-overflow-y: visible; }
+  overflow: hidden; }
 
 .modal-card-head,
 .modal-card-foot {
