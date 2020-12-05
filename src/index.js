@@ -9,18 +9,6 @@ document.addEventListener("DOMContentLoaded", function(event){
 
     const form = document.getElementById('form');
     const search = document.getElementById('movie-search');
-
-    class Movie {
-        constructor(tmdb_id, title, year, poster_url, watched, to_watch, rating) {
-            this.tmdb_id = tmdb_id;
-            this.title = title;
-            this.year = year;
-            this.poster_url = poster_url;
-            this.watched = watched;
-            this.to_watch = to_watch;
-            this.rating = rating;
-        }
-    }
     
     form.addEventListener('click', function(event) {
         event.preventDefault();
@@ -30,11 +18,15 @@ document.addEventListener("DOMContentLoaded", function(event){
         console.log(input);
         search.value = '';
 
-        // if (input) {
-        //     showMovies(TMDB_URL + input);
-        //     search.value = "";
-        // }
+        if (input) {
+            fetchMovieData(TMDB_URL + input);
+            search.value = "";
+        }
     }, false);
+
+    function showSearchedMovies() {
+
+    }
 
     function createMovieCard(movie) {
         let main = document.getElementById("main");
@@ -68,19 +60,19 @@ document.addEventListener("DOMContentLoaded", function(event){
         })
         .then(function(json) {
             let movies = json['data']
-            fetchMovieData(movies)
+            movies.forEach(movie => {
+                fetchMovieData(movie)
+            })
         })
     }
 
-    function fetchMovieData(movies) {
-        movies.forEach(movie => {
-            return fetch(TMDB_URL+movie.attributes.tmdb_id+TMDB_APPEND)
-            .then(function(response) {
-                return response.json()
-            })
-            .then(function(json) {
-                createMovieCard(json)
-            })
+    function fetchMovieData(movie) { 
+        return fetch(TMDB_URL+movie.attributes.tmdb_id+TMDB_APPEND)
+        .then(function(response) {
+            return response.json()
+        })
+        .then(function(json) {
+            createMovieCard(json)
         })
     }
 
@@ -88,6 +80,9 @@ document.addEventListener("DOMContentLoaded", function(event){
 });
 
 
-//fetch tracked movie tmdb_ids --> rails
-//fetch movie data using tmdb_ids --> tmdb
-//make cards uring movie data
+// enter search query
+// click submit
+// query sent to fetch movie data search API call
+// recieve json back
+// create cards in search results area
+// 
