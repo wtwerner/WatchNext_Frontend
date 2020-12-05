@@ -12,7 +12,8 @@ document.addEventListener("DOMContentLoaded", function(){
     
     form.addEventListener('click', function(event) {
         event.preventDefault();
-
+        const div = document.getElementById("search-results")
+        div.innerHTML = ""
         let input = search.value;
 
         console.log(input);
@@ -24,10 +25,6 @@ document.addEventListener("DOMContentLoaded", function(){
         search.value = "";
     }, false);
 
-    function createSearchMovieCard(movie){
-
-    }
-
     function createMovieCard(movie) {
         let main = document.getElementById("main");
         let div = document.createElement("div");
@@ -36,6 +33,31 @@ document.addEventListener("DOMContentLoaded", function(){
         //add real image source
         img.src = IMG_URL + movie.poster_path;
         div.className = "card";
+        pTag.innerHTML = movie.title
+    
+        let watchedButton = document.createElement("button")
+        watchedButton.innerHTML = "Watched"
+        watchedButton.className = "button is-small"
+
+        let removeButton = document.createElement("button")
+        removeButton.innerHTML = "Remove"
+        removeButton.className = "button is-small"
+        
+        div.appendChild(img)
+        div.appendChild(pTag)
+        div.appendChild(watchedButton)
+        div.appendChild(removeButton)
+        main.appendChild(div)
+    }
+
+    function createSearchCard(movie) {
+        let main = document.getElementById("search-results");
+        let div = document.createElement("div");
+        let pTag = document.createElement("p");
+        let img = document.createElement("img");
+
+        img.src = IMG_URL + movie.poster_path;
+        div.className = "box";
         pTag.innerHTML = movie.title
     
         let watchedButton = document.createElement("button")
@@ -82,7 +104,7 @@ document.addEventListener("DOMContentLoaded", function(){
             })
             .then(function(json) {
                 json.results.forEach(movie => {
-                    createMovieCard(movie)
+                    createSearchCard(movie)
             })
         })
     }}
