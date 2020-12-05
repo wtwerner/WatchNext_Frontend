@@ -57,6 +57,10 @@ document.addEventListener("DOMContentLoaded", function(){
         removeButton.id = "button-remove"
         removeButton.innerHTML = "Remove"
         removeButton.className = "button is-small"
+        removeButton.setAttribute("movie_id", movie.id)
+        removeButton.addEventListener('click', function(event) {
+            removeFromWatchList(event.target.attributes.movie_id.value)
+        })
         
         div.appendChild(img)
         div.appendChild(pTag)
@@ -141,6 +145,25 @@ document.addEventListener("DOMContentLoaded", function(){
         .then (response => response.json())
         .then (json => {
             fetchMovieData(json['data'])
+        })
+    }
+
+    function removeFromWatchList(id) {
+        console.log(id)
+        fetch(BACKEND_URL+`/movies/${id}`, {
+            method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+
+            body: JSON.stringify({
+                "tmdb_id": id
+            })
+        })
+        .then (response => response.json())
+        .then (json => {
+            console.log(json)
         })
     }
 
