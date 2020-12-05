@@ -2,7 +2,10 @@ document.addEventListener("DOMContentLoaded", function(event){
     console.clear()
 
     const BACKEND_URL = 'http://localhost:3000';
-    const TMDB_URL = 'https://api.themoviedb.org/3/search/movie?&api_key=462158256aa6d5d3eab60e67dcecfde2&query="';
+    const TMDB_URL = 'https://api.themoviedb.org/3/movie/';
+    const IMG_URL = 'https://image.tmdb.org/t/p/w1280';
+    const TMDB_APPEND = '?api_key=462158256aa6d5d3eab60e67dcecfde2'
+
 
     const form = document.getElementById('form');
     const search = document.getElementById('movie-search');
@@ -34,10 +37,13 @@ document.addEventListener("DOMContentLoaded", function(event){
     }, false);
 
     function createMovieCard(movie) {
-        let main = document.getElementById("main")
-        let div = document.createElement("div")
-        let pTag = document.createElement("p")
-        div.className = "card"
+        let main = document.getElementById("main");
+        let div = document.createElement("div");
+        let pTag = document.createElement("p");
+        // let img = document.createElement("img");
+        //add real image source
+        // img.src = IMG_URL + movie.imgsource;
+        div.className = "card";
         pTag.innerHTML = movie.attributes.tmdb_id
     
         let watchedButton = document.createElement("button")
@@ -60,13 +66,27 @@ document.addEventListener("DOMContentLoaded", function(event){
             return response.json()
         })
         .then(function(json) {
+            console.log(json)
             let movies = json['data']
-            movies.forEach(movie => {
-                createMovieCard(movie)
-                console.log(movie)
+            fetchMovieData(movies)
+        })
+    }
+
+    function fetchMovieData(movies) {
+        movies.forEach(movie => {
+            return fetch(TMDB_URL+movie.attributes.tmdb_id+TMDB_APPEND)
+            .then(function(response) {
+                return response.json()
+            }).then(function(json) {
+                createMovieCard(json)
             })
         })
     }
 
     fetchMovies()
 });
+
+
+//fetch tracked movie tmdb_ids --> rails
+//fetch movie data using tmdb_ids --> tmdb
+//make cards uring movie data
