@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", function(){
     const TMDB_APPEND = '?api_key=462158256aa6d5d3eab60e67dcecfde2'
 
 
-    const form = document.getElementById('form');
+    const searchButton = document.querySelector('#search');
     const search = document.getElementById('movie-search');
     
-    form.addEventListener('click', function(event) {
+    searchButton.addEventListener('click', function(event) {
         event.preventDefault();
         const div = document.getElementById("search-results")
         div.innerHTML = ""
@@ -23,6 +23,23 @@ document.addEventListener("DOMContentLoaded", function(){
             fetchMovieData(input);
         }
         search.value = "";
+    }, false);
+
+    search.addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const div = document.getElementById("search-results")
+            div.innerHTML = ""
+            let input = search.value;
+
+            console.log(input);
+
+            if (input) {
+                console.log(input)
+                fetchMovieData(input);
+            }
+            search.value = "";
+        }
     }, false);
 
     function createMovieCard(movie) {
