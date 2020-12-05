@@ -1,8 +1,8 @@
-document.addEventListener("DOMContentLoaded", function(event){
+document.addEventListener("DOMContentLoaded", function(){
     console.clear()
 
     const BACKEND_URL = 'http://localhost:3000';
-    const TMDB_URL = 'https://api.themoviedb.org/3/movie/';
+    const TMDB_URL = 'https://api.themoviedb.org/3/';
     const IMG_URL = 'https://image.tmdb.org/t/p/w200';
     const TMDB_APPEND = '?api_key=462158256aa6d5d3eab60e67dcecfde2'
 
@@ -16,15 +16,15 @@ document.addEventListener("DOMContentLoaded", function(event){
         let input = search.value;
 
         console.log(input);
-        search.value = '';
 
         if (input) {
-            fetchMovieData(TMDB_URL + input);
-            search.value = "";
+            console.log(input)
+            fetchMovieData(input);
         }
+        search.value = "";
     }, false);
 
-    function showSearchedMovies() {
+    function createSearchMovieCard(movie){
 
     }
 
@@ -67,14 +67,25 @@ document.addEventListener("DOMContentLoaded", function(event){
     }
 
     function fetchMovieData(movie) { 
-        return fetch(TMDB_URL+movie.attributes.tmdb_id+TMDB_APPEND)
-        .then(function(response) {
-            return response.json()
+        if(!(typeof movie === 'string' || movie instanceof String)) {
+            return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+            .then(function(response) {
+                return response.json()
+            })
+            .then(function(json) {
+                createMovieCard(json)
+            })
+        } else {
+            return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
+            .then(function(response) {
+                return response.json()
+            })
+            .then(function(json) {
+                json.results.forEach(movie => {
+                    createMovieCard(movie)
+            })
         })
-        .then(function(json) {
-            createMovieCard(json)
-        })
-    }
+    }}
 
     fetchMovies()
 });
