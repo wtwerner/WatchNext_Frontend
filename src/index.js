@@ -3,7 +3,7 @@ document.addEventListener("DOMContentLoaded", function(event){
 
     const BACKEND_URL = 'http://localhost:3000';
     const TMDB_URL = 'https://api.themoviedb.org/3/movie/';
-    const IMG_URL = 'https://image.tmdb.org/t/p/w1280';
+    const IMG_URL = 'https://image.tmdb.org/t/p/w200';
     const TMDB_APPEND = '?api_key=462158256aa6d5d3eab60e67dcecfde2'
 
 
@@ -40,9 +40,9 @@ document.addEventListener("DOMContentLoaded", function(event){
         let main = document.getElementById("main");
         let div = document.createElement("div");
         let pTag = document.createElement("p");
-        // let img = document.createElement("img");
+        let img = document.createElement("img");
         //add real image source
-        // img.src = IMG_URL + movie.imgsource;
+        img.src = IMG_URL + movie.poster_path;
         div.className = "card";
         pTag.innerHTML = movie.title
     
@@ -53,7 +53,8 @@ document.addEventListener("DOMContentLoaded", function(event){
         let removeButton = document.createElement("button")
         removeButton.innerHTML = "Remove"
         removeButton.className = "button is-small"
-    
+        
+        div.appendChild(img)
         div.appendChild(pTag)
         div.appendChild(watchedButton)
         div.appendChild(removeButton)
