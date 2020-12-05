@@ -28,10 +28,7 @@ document.addEventListener("DOMContentLoaded", function(){
             div.innerHTML = ""
             let input = search.value;
 
-            console.log(input);
-
             if (input) {
-                console.log(input)
                 fetchMovieData(input);
             }
             search.value = "";
@@ -46,6 +43,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         img.src = IMG_URL + movie.poster_path;
         div.className = "card";
+        div.id = movie.id;
         pTag.innerHTML = movie.title
     
         let watchedButton = document.createElement("button")
@@ -77,7 +75,8 @@ document.addEventListener("DOMContentLoaded", function(){
 
         img.src = IMG_URL + movie.poster_path;
         div.className = "card";
-        pTag.innerHTML = movie.title
+        div.id = movie.id;
+        pTag.innerHTML = movie.title;
         
         let watchListButton = document.createElement("button")
         watchListButton.id = "button-add"
@@ -161,10 +160,12 @@ document.addEventListener("DOMContentLoaded", function(){
                 "tmdb_id": id
             })
         })
-        .then (response => response.json())
-        .then (json => {
-            console.log(json)
-        })
+        .then (removeCard(id))
+    }
+
+    function removeCard(id) {
+        let card = document.getElementById(id)
+        card.remove()
     }
 
     fetchMovies()
