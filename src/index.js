@@ -5,8 +5,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const TMDB_URL = 'https://api.themoviedb.org/3/';
     const IMG_URL = 'https://image.tmdb.org/t/p/w92';
     const TMDB_APPEND = '?api_key=462158256aa6d5d3eab60e67dcecfde2'
-
-
+    
     const searchButton = document.querySelector('#search');
     const search = document.getElementById('movie-search');
     
@@ -16,10 +15,7 @@ document.addEventListener("DOMContentLoaded", function(){
         div.innerHTML = ""
         let input = search.value;
 
-        console.log(input);
-
         if (input) {
-            console.log(input)
             fetchMovieData(input);
         }
         search.value = "";
@@ -47,16 +43,18 @@ document.addEventListener("DOMContentLoaded", function(){
         let div = document.createElement("div");
         let pTag = document.createElement("p");
         let img = document.createElement("img");
-        //add real image source
+
         img.src = IMG_URL + movie.poster_path;
         div.className = "card";
         pTag.innerHTML = movie.title
     
         let watchedButton = document.createElement("button")
+        watchedButton.id = "button-watched"
         watchedButton.innerHTML = "Watched"
         watchedButton.className = "button is-small"
 
         let removeButton = document.createElement("button")
+        removeButton.id = "button-remove"
         removeButton.innerHTML = "Remove"
         removeButton.className = "button is-small"
         
@@ -74,16 +72,21 @@ document.addEventListener("DOMContentLoaded", function(){
         let img = document.createElement("img");
 
         img.src = IMG_URL + movie.poster_path;
-        div.className = "box";
+        div.className = "card";
         pTag.innerHTML = movie.title
-    
-        let addToWatchlist = document.createElement("button")
-        addToWatchlist.innerHTML = "Add to watchlist"
-        addToWatchlist.className = "button is-small"
         
+        let watchListButton = document.createElement("button")
+        watchListButton.id = "button-add"
+        watchListButton.innerHTML = "Add to watchlist"
+        watchListButton.className = "button is-small"
+        watchListButton.setAttribute("movie_id", movie.id)
+        watchListButton.addEventListener('click', function(event) {
+            addToWatchList(event.target.attributes.movie_id.value)
+        })
+
         div.appendChild(img)
         div.appendChild(pTag)
-        div.appendChild(addToWatchlist)
+        div.appendChild(watchListButton)
         main.appendChild(div)
     }
 
@@ -121,13 +124,19 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }}
 
+    function addToWatchList(id) {
+        fetch(BACKEND_URL+`/movies/${id}`, {
+            method: 'PATCH',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+
+            body: JSON.stringify({
+                "to_watch": true
+            })
+        })
+    }
+
     fetchMovies()
 });
-
-
-// enter search query
-// click submit
-// query sent to fetch movie data search API call
-// recieve json back
-// create cards in search results area
-// 
