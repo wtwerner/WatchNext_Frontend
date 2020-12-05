@@ -60,18 +60,13 @@ document.addEventListener("DOMContentLoaded", function(){
         div.className = "box";
         pTag.innerHTML = movie.title
     
-        let watchedButton = document.createElement("button")
-        watchedButton.innerHTML = "Watched"
-        watchedButton.className = "button is-small"
-
-        let removeButton = document.createElement("button")
-        removeButton.innerHTML = "Remove"
-        removeButton.className = "button is-small"
+        let addToWatchlist = document.createElement("button")
+        addToWatchlist.innerHTML = "Add to watchlist"
+        addToWatchlist.className = "button is-small"
         
         div.appendChild(img)
         div.appendChild(pTag)
-        div.appendChild(watchedButton)
-        div.appendChild(removeButton)
+        div.appendChild(addToWatchlist)
         main.appendChild(div)
     }
 
