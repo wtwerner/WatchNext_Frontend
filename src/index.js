@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", function(){
         div.className = "card";
         div.id = movie.id;
 
-        pTag.className = "title is-6"
+        pTag.className = "title is-7"
         pTag.innerHTML = movie.title;
     
         let watchedButton = document.createElement("button")
