@@ -103,13 +103,25 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function createSearchCard(movie) {
         let main = document.getElementById("search-results");
+        let column = document.createElement("div");
         let div = document.createElement("div");
+        let imgDiv = document.createElement("div");
+        let figure = document.createElement("figure");
+        let content = document.createElement("div")
         let pTag = document.createElement("p");
         let img = document.createElement("img");
 
         img.src = IMG_URL + movie.poster_path;
+        imgDiv.className = "card-image";
+        figure.className = "image is-2by3"
+
+        content.className = "card-content"
+
+        column.className = "column is-one-quarter";
         div.className = "card";
         div.id = movie.id;
+
+        pTag.className = "title is-6"
         pTag.innerHTML = movie.title;
         
         let watchListButton = document.createElement("button")
@@ -121,10 +133,14 @@ document.addEventListener("DOMContentLoaded", function(){
             addToWatchList(event.target.attributes.movie_id.value)
         })
 
-        div.appendChild(img)
-        div.appendChild(pTag)
+        imgDiv.appendChild(figure)
+        figure.appendChild(img)
+        content.appendChild(pTag)
+        div.appendChild(imgDiv)
+        div.appendChild(content)
         div.appendChild(watchListButton)
-        main.appendChild(div)
+        column.appendChild(div)
+        main.appendChild(column)
     }
 
     function fetchMovies() {
