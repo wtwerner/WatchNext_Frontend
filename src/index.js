@@ -130,7 +130,8 @@ document.addEventListener("DOMContentLoaded", function(){
         watchListButton.className = "button is-small"
         watchListButton.setAttribute("movie_id", movie.id)
         watchListButton.addEventListener('click', function(event) {
-            addToWatchList(event.target.attributes.movie_id.value)
+            addToWatchList(event.target.attributes.movie_id.value);
+            watchListButton.innerHTML = "Added to watch list"
         })
 
         imgDiv.appendChild(figure)
