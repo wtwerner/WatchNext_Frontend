@@ -3,12 +3,12 @@ document.addEventListener("DOMContentLoaded", function(){
 
     const BACKEND_URL = 'http://localhost:3000';
     const TMDB_URL = 'https://api.themoviedb.org/3/';
-    const IMG_URL = 'https://image.tmdb.org/t/p/w92';
+    const IMG_URL = 'https://image.tmdb.org/t/p/w780';
     const TMDB_APPEND = '?api_key=462158256aa6d5d3eab60e67dcecfde2'
     
     const searchButton = document.querySelector('#search');
     const search = document.getElementById('movie-search');
-    
+
     searchButton.addEventListener('click', function(event) {
         event.preventDefault();
         const div = document.getElementById("search-results")
@@ -38,13 +38,23 @@ document.addEventListener("DOMContentLoaded", function(){
     function createMovieCard(movie) {
         let main = document.getElementById("main");
         let div = document.createElement("div");
+        let imgDiv = document.createElement("div");
+        let figure = document.createElement("figure");
+        let content = document.createElement("div")
         let pTag = document.createElement("p");
         let img = document.createElement("img");
 
         img.src = IMG_URL + movie.poster_path;
+        imgDiv.className = "card-image";
+        figure.className = "image is-2by3"
+
+        content.className = "card-content"
+
         div.className = "card";
         div.id = movie.id;
-        pTag.innerHTML = movie.title
+
+        pTag.className = "title is-6"
+        pTag.innerHTML = movie.title;
     
         let watchedButton = document.createElement("button")
         watchedButton.id = "button-watched"
@@ -60,8 +70,11 @@ document.addEventListener("DOMContentLoaded", function(){
             removeFromWatchList(event.target.attributes.movie_id.value)
         })
         
-        div.appendChild(img)
-        div.appendChild(pTag)
+        imgDiv.appendChild(figure)
+        figure.appendChild(img)
+        content.appendChild(pTag)
+        div.appendChild(imgDiv)
+        div.appendChild(content)
         div.appendChild(watchedButton)
         div.appendChild(removeButton)
         main.appendChild(div)
@@ -92,6 +105,31 @@ document.addEventListener("DOMContentLoaded", function(){
         div.appendChild(watchListButton)
         main.appendChild(div)
     }
+
+    // function createWatchedCard(movie) {
+    //     let watched = document.getElementById("watched-movies");
+    //     let div = document.createElement("div");
+    //     let pTag = document.createElement("p");
+
+    //     div.className = "card";
+    //     div.id = movie.id;
+    //     pTag.innerHTML = movie.title
+    
+    //     let deleteButton = document.createElement("button")
+    //     deleteButton.id = "button-delete"
+    //     deleteButton.innerHTML = "Delete"
+    //     deleteButton.className = "button is-small"
+    //     deleteButton.setAttribute("movie_id", movie.id)
+    //     deleteButton.addEventListener('click', function(event) {
+    //         removeFromWatchList(event.target.attributes.movie_id.value)
+    //     })
+        
+    //     div.appendChild(img)
+    //     div.appendChild(pTag)
+    //     div.appendChild(watchedButton)
+    //     div.appendChild(removeButton)
+    //     main.appendChild(div)
+    // }
 
     function fetchMovies() {
         return fetch(BACKEND_URL+'/movies')
