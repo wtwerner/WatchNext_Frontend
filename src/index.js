@@ -37,6 +37,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function createMovieCard(movie) {
         let main = document.getElementById("main");
+        let column = document.createElement("div");
         let div = document.createElement("div");
         let imgDiv = document.createElement("div");
         let figure = document.createElement("figure");
@@ -50,6 +51,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         content.className = "card-content"
 
+        column.className = "column is-one-quarter";
         div.className = "card";
         div.id = movie.id;
 
@@ -77,7 +79,8 @@ document.addEventListener("DOMContentLoaded", function(){
         div.appendChild(content)
         div.appendChild(watchedButton)
         div.appendChild(removeButton)
-        main.appendChild(div)
+        column.appendChild(div)
+        main.appendChild(column)
     }
 
     function createSearchCard(movie) {
@@ -202,9 +205,22 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function removeCard(id) {
-        let card = document.getElementById(id)
+        let card = document.getElementById(id).parentElement
         card.remove()
     }
 
+    function showView(viewName) {
+        document.querySelector('.view').hide();
+        document.querySelector('#' + viewName).show();
+    }
+
+    // showView()
     fetchMovies()
 });
+
+
+
+function showView(viewName) {
+    document.querySelector('.view').hide();
+    document.querySelector('#' + viewName).show();
+}
