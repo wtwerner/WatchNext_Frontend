@@ -4,6 +4,7 @@ document.addEventListener("DOMContentLoaded", function(){
     const BACKEND_URL = 'http://localhost:3000';
     const TMDB_URL = 'https://api.themoviedb.org/3/';
     const IMG_URL = 'https://image.tmdb.org/t/p/w780';
+    const MOVIE_URL = 'https://www.themoviedb.org/movie/'
     const TMDB_APPEND = '?api_key=462158256aa6d5d3eab60e67dcecfde2'
     
     const searchButton = document.querySelector('#search');
@@ -62,6 +63,9 @@ document.addEventListener("DOMContentLoaded", function(){
         let content = document.createElement("div")
         let pTag = document.createElement("p");
         let img = document.createElement("img");
+        let footer = document.createElement("footer")
+        let footerItem1 = document.createElement("a")
+        let footerItem2 = document.createElement("a")
 
         img.src = IMG_URL + movie.poster_path;
         imgDiv.className = "card-image";
@@ -69,24 +73,30 @@ document.addEventListener("DOMContentLoaded", function(){
 
         content.className = "card-content"
 
-        column.className = "column is-one-fifth";
+        column.className = "column is-one-quarter";
         div.className = "card";
         div.id = movie.id;
 
         pTag.className = "title is-7"
-        pTag.innerHTML = movie.title;
-    
-        let watchedButton = document.createElement("button")
-        watchedButton.id = "button-watched"
-        watchedButton.innerHTML = "Watched"
-        watchedButton.className = "button is-small"
+        pTag.innerHTML = movie.title+" ("+movie.release_date.substring(0,4)+")";
 
-        let removeButton = document.createElement("button")
-        removeButton.id = "button-remove"
-        removeButton.innerHTML = "Remove"
-        removeButton.className = "button is-small"
-        removeButton.setAttribute("movie_id", movie.id)
-        removeButton.addEventListener('click', function(event) {
+        footer.className = "card-footer"
+    
+        let watchedLink = document.createElement("a")
+        watchedLink.id = "button-watched"
+        watchedLink.innerHTML = "Watched"
+        watchedLink.className = "card-footer-item"
+        watchedLink.setAttribute("movie_id", movie.id)
+        watchedLink.addEventListener('click', function(event) {
+            moveToWatched(event.target.attributes.movie_id.value)
+        })
+
+        let removeLink = document.createElement("a")
+        removeLink.id = "button-remove"
+        removeLink.innerHTML = "Remove"
+        removeLink.className = "card-footer-item"
+        removeLink.setAttribute("movie_id", movie.id)
+        removeLink.addEventListener('click', function(event) {
             removeFromWatchList(event.target.attributes.movie_id.value)
         })
         
@@ -95,8 +105,9 @@ document.addEventListener("DOMContentLoaded", function(){
         content.appendChild(pTag)
         div.appendChild(imgDiv)
         div.appendChild(content)
-        div.appendChild(watchedButton)
-        div.appendChild(removeButton)
+        footer.appendChild(watchedLink)
+        footer.appendChild(removeLink)
+        div.appendChild(footer)
         column.appendChild(div)
         main.appendChild(column)
     }
@@ -199,7 +210,6 @@ document.addEventListener("DOMContentLoaded", function(){
     }
 
     function removeFromWatchList(id) {
-        console.log(id)
         fetch(BACKEND_URL+`/movies/${id}`, {
             method: 'DELETE',
             headers: {
@@ -212,6 +222,22 @@ document.addEventListener("DOMContentLoaded", function(){
             })
         })
         .then (removeCard(id))
+    }
+
+    function moveToWatched(id) {
+        fetch(BACKEND_URL+`/movies/${id}`, {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json",
+                "Accept": "application/json"
+            },
+
+            body: JSON.stringify({
+                "tmdb_id": id,
+                "watched": true,
+                "to_watch": false
+            })
+        })
     }
 
     function removeCard(id) {
