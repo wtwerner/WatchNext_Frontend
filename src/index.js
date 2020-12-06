@@ -9,6 +9,24 @@ document.addEventListener("DOMContentLoaded", function(){
     const searchButton = document.querySelector('#search');
     const search = document.getElementById('movie-search');
 
+    const watchListNavButton = document.getElementById('watchlist-nav');
+    const searchNavButton = document.getElementById('search-nav');
+
+    const watchListView = document.getElementById("watchlist-view")
+    const searchView = document.getElementById("search-view")
+
+    watchListNavButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        searchView.hidden = true
+        watchListView.hidden = false
+    })
+
+    searchNavButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        searchView.hidden = false
+        watchListView.hidden = true
+    })
+
     searchButton.addEventListener('click', function(event) {
         event.preventDefault();
         const div = document.getElementById("search-results")
@@ -109,31 +127,6 @@ document.addEventListener("DOMContentLoaded", function(){
         main.appendChild(div)
     }
 
-    // function createWatchedCard(movie) {
-    //     let watched = document.getElementById("watched-movies");
-    //     let div = document.createElement("div");
-    //     let pTag = document.createElement("p");
-
-    //     div.className = "card";
-    //     div.id = movie.id;
-    //     pTag.innerHTML = movie.title
-    
-    //     let deleteButton = document.createElement("button")
-    //     deleteButton.id = "button-delete"
-    //     deleteButton.innerHTML = "Delete"
-    //     deleteButton.className = "button is-small"
-    //     deleteButton.setAttribute("movie_id", movie.id)
-    //     deleteButton.addEventListener('click', function(event) {
-    //         removeFromWatchList(event.target.attributes.movie_id.value)
-    //     })
-        
-    //     div.appendChild(img)
-    //     div.appendChild(pTag)
-    //     div.appendChild(watchedButton)
-    //     div.appendChild(removeButton)
-    //     main.appendChild(div)
-    // }
-
     function fetchMovies() {
         return fetch(BACKEND_URL+'/movies')
         .then(function(response) {
@@ -209,13 +202,8 @@ document.addEventListener("DOMContentLoaded", function(){
         card.remove()
     }
 
-    function showView(viewName) {
-        document.querySelector('.view').hide();
-        document.querySelector('#' + viewName).show();
-    }
-
-    // showView()
     fetchMovies()
+    searchView.hidden = true
 });
 
 
