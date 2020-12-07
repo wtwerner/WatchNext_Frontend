@@ -79,6 +79,9 @@ document.addEventListener("DOMContentLoaded", function(){
         img.src = IMG_URL + movie.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
+        figure.addEventListener('click', function(event) {
+            window.open(`${MOVIE_URL+movie.id}`, '_blank');
+        })
 
         content.className = "card-content"
 
@@ -135,6 +138,9 @@ document.addEventListener("DOMContentLoaded", function(){
         img.src = IMG_URL + movie.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
+        figure.addEventListener('click', function(event) {
+            window.open(`${MOVIE_URL+movie.id}`, '_blank');
+        })
 
         content.className = "card-content"
 
@@ -189,6 +195,9 @@ document.addEventListener("DOMContentLoaded", function(){
         img.src = IMG_URL + movie.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
+        figure.addEventListener('click', function(event) {
+            window.open(`${MOVIE_URL+movie.id}`, '_blank');
+        })
 
         content.className = "card-content"
 
