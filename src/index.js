@@ -246,7 +246,6 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function fetchMovieData(movie) { 
         if(!(typeof movie === 'string' || movie instanceof String)) {
-            console.log(movie)
             if(movie.attributes.to_watch === true) {
                 return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
                 .then(function(response) {
