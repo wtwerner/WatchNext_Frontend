@@ -315,10 +315,3 @@ document.addEventListener("DOMContentLoaded", function(){
     fetchMovies()
     searchView.hidden = true
 });
-
-
-
-function showView(viewName) {
-    document.querySelector('.view').hide();
-    document.querySelector('#' + viewName).show();
-}
