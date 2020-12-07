@@ -150,11 +150,9 @@ document.addEventListener("DOMContentLoaded", function(){
         let watchedLink = document.createElement("a")
         watchedLink.id = "button-watched"
         watchedLink.innerHTML = "Watched"
-        watchedLink.className = "card-footer-item"
+        watchedLink.className = "card-footer-item has-text-danger"
         watchedLink.setAttribute("movie_id", movie.id)
-        watchedLink.addEventListener('click', function(event) {
-            moveToWatched(event.target.attributes.movie_id.value)
-        })
+    
 
         let removeLink = document.createElement("a")
         removeLink.id = "button-remove"
@@ -186,6 +184,7 @@ document.addEventListener("DOMContentLoaded", function(){
         let content = document.createElement("div")
         let pTag = document.createElement("p");
         let img = document.createElement("img");
+        let footer = document.createElement("footer");
 
         img.src = IMG_URL + movie.poster_path;
         imgDiv.className = "card-image";
@@ -197,13 +196,15 @@ document.addEventListener("DOMContentLoaded", function(){
         div.className = "card";
         div.id = movie.id;
 
-        pTag.className = "title is-6"
-        pTag.innerHTML = movie.title;
+        pTag.className = "title is-7"
+        pTag.innerHTML = movie.title+" ("+movie.release_date.substring(0,4)+")";
+
+        footer.className = "card-footer"
         
         let watchListButton = document.createElement("button")
         watchListButton.id = "button-add"
         watchListButton.innerHTML = "Add to watchlist"
-        watchListButton.className = "button is-small"
+        watchListButton.className = "button card-footer-item"
         watchListButton.setAttribute("movie_id", movie.id)
         watchListButton.addEventListener('click', function(event) {
             addToWatchList(event.target.attributes.movie_id.value);
@@ -213,9 +214,10 @@ document.addEventListener("DOMContentLoaded", function(){
         imgDiv.appendChild(figure)
         figure.appendChild(img)
         content.appendChild(pTag)
+        footer.appendChild(watchListButton)
         div.appendChild(imgDiv)
         div.appendChild(content)
-        div.appendChild(watchListButton)
+        div.appendChild(footer)
         column.appendChild(div)
         main.appendChild(column)
     }
