@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     watchedNavButton.addEventListener('click', function(event) {
         event.preventDefault();
-        searchView.hidden = false
+        searchView.hidden = true
         watchListView.hidden = true
         watchedView.hidden = false
     })
@@ -235,6 +235,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function fetchMovieData(movie) { 
         if(!(typeof movie === 'string' || movie instanceof String)) {
+            console.log(movie)
             if(movie.attributes.to_watch === true) {
                 return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
                 .then(function(response) {
@@ -313,9 +314,11 @@ document.addEventListener("DOMContentLoaded", function(){
                 "to_watch": false
             })
         })
-        .then (document.getElementById("main").innerHTML = "")
-        .then (document.getElementById("watched").innerHTML = "")
-        .then (fetchMovies())
+        .then (response => response.json())
+        .then (json => {
+            fetchMovieData(json['data'][0])
+        })
+        .then (removeCard(id))
     }
 
     function removeCard(id) {
