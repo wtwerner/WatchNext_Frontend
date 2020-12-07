@@ -201,7 +201,7 @@ document.addEventListener("DOMContentLoaded", function(){
 
         content.className = "card-content"
 
-        column.className = "column is-one-fifth";
+        column.className = "column is-one-quarter";
         div.className = "card";
         div.id = movie.id;
 
