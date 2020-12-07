@@ -64,8 +64,62 @@ document.addEventListener("DOMContentLoaded", function(){
         let pTag = document.createElement("p");
         let img = document.createElement("img");
         let footer = document.createElement("footer")
-        let footerItem1 = document.createElement("a")
-        let footerItem2 = document.createElement("a")
+
+        img.src = IMG_URL + movie.poster_path;
+        imgDiv.className = "card-image";
+        figure.className = "image is-2by3"
+
+        content.className = "card-content"
+
+        column.className = "column is-one-quarter";
+        div.className = "card";
+        div.id = movie.id;
+
+        pTag.className = "title is-7"
+        pTag.innerHTML = movie.title+" ("+movie.release_date.substring(0,4)+")";
+
+        footer.className = "card-footer"
+    
+        let watchedLink = document.createElement("a")
+        watchedLink.id = "button-watched"
+        watchedLink.innerHTML = "Watched"
+        watchedLink.className = "card-footer-item"
+        watchedLink.setAttribute("movie_id", movie.id)
+        watchedLink.addEventListener('click', function(event) {
+            moveToWatched(event.target.attributes.movie_id.value)
+        })
+
+        let removeLink = document.createElement("a")
+        removeLink.id = "button-remove"
+        removeLink.innerHTML = "Remove"
+        removeLink.className = "card-footer-item"
+        removeLink.setAttribute("movie_id", movie.id)
+        removeLink.addEventListener('click', function(event) {
+            removeFromWatchList(event.target.attributes.movie_id.value)
+        })
+        
+        imgDiv.appendChild(figure)
+        figure.appendChild(img)
+        content.appendChild(pTag)
+        div.appendChild(imgDiv)
+        div.appendChild(content)
+        footer.appendChild(watchedLink)
+        footer.appendChild(removeLink)
+        div.appendChild(footer)
+        column.appendChild(div)
+        main.appendChild(column)
+    }
+
+    function createWatchedCard(movie) {
+        let main = document.getElementById("watched");
+        let column = document.createElement("div");
+        let div = document.createElement("div");
+        let imgDiv = document.createElement("div");
+        let figure = document.createElement("figure");
+        let content = document.createElement("div")
+        let pTag = document.createElement("p");
+        let img = document.createElement("img");
+        let footer = document.createElement("footer")
 
         img.src = IMG_URL + movie.poster_path;
         imgDiv.className = "card-image";
@@ -170,13 +224,23 @@ document.addEventListener("DOMContentLoaded", function(){
 
     function fetchMovieData(movie) { 
         if(!(typeof movie === 'string' || movie instanceof String)) {
-            return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
-            .then(function(response) {
-                return response.json()
-            })
-            .then(function(json) {
-                createMovieCard(json)
-            })
+            if(movie.attributes.to_watch === true) {
+                return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+                .then(function(response) {
+                    return response.json()
+                })
+                .then(function(json) {
+                    createMovieCard(json)
+                })
+            } else {
+                return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+                .then(function(response) {
+                    return response.json()
+                })
+                .then(function(json) {
+                    createWatchedCard(json)
+                })
+            }
         } else {
             return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
             .then(function(response) {
@@ -238,6 +302,9 @@ document.addEventListener("DOMContentLoaded", function(){
                 "to_watch": false
             })
         })
+        .then (document.getElementById("main").innerHTML = "")
+        .then (document.getElementById("watched").innerHTML = "")
+        .then (fetchMovies())
     }
 
     function removeCard(id) {
