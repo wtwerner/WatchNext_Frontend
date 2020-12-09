@@ -74,3 +74,14 @@ class Movie {
         .then (removeCard(this.tmdb_id))
     }
 }
+
+function createMovie(userMovieData, apiMovieData){
+    return new Movie(
+        apiMovieData.title,
+        apiMovieData.release_date,
+        apiMovieData.poster_path,
+        userMovieData.tmdb_id,
+        userMovieData.watched,
+        userMovieData.to_watch
+    )
+}
