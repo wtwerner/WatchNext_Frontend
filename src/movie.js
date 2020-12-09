@@ -80,8 +80,8 @@ function createMovie(userMovieData, apiMovieData){
         apiMovieData.title,
         apiMovieData.release_date,
         apiMovieData.poster_path,
-        userMovieData.tmdb_id,
-        userMovieData.watched,
-        userMovieData.to_watch
+        userMovieData.attributes.tmdb_id,
+        userMovieData.attributes.watched,
+        userMovieData.attributes.to_watch
     )
 }

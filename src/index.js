@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", function(){
     const searchView = document.getElementById("search-view")
     const watchedView = document.getElementById("watched-view")
 
+    let movies = {}
+
     watchListNavButton.addEventListener('click', function(event) {
         event.preventDefault();
         searchView.hidden = true
@@ -238,98 +240,111 @@ document.addEventListener("DOMContentLoaded", function(){
         })
         .then(function(json) {
             let movies = json['data']
-            movies.forEach(movie => {
-                fetchMovieData(movie)
+            movies.forEach(userMovieData => {
+                fetchMovieData(userMovieData)
             })
         })
     }
 
-    function fetchMovieData(movie) { 
-        if(!(typeof movie === 'string' || movie instanceof String)) {
-            if(movie.attributes.to_watch === true) {
-                return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
-                .then(function(response) {
-                    return response.json()
-                })
-                .then(function(json) {
-                    createMovieCard(json)
-                })
-            } else {
-                return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
-                .then(function(response) {
-                    return response.json()
-                })
-                .then(function(json) {
-                    createWatchedCard(json)
-                })
-            }
-        } else {
-            return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
-            .then(function(response) {
-                return response.json()
-            })
-            .then(function(json) {
-                json.results.forEach(movie => {
-                    createSearchCard(movie)
-            })
+    function fetchMovieData(movie){
+        let userMovieData = movie
+        return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+        .then(function(response) {
+            return response.json()
         })
-    }}
-
-    function addToWatchList(id) {
-        fetch(BACKEND_URL+`/movies`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
-
-            body: JSON.stringify({
-                "tmdb_id": id,
-                "to_watch": true,
-                "watched": false
-            })
-        })
-        .then (response => response.json())
-        .then (json => {
-            fetchMovieData(json['data'])
+        .then(function(json) {
+            let apiMovieData = json
+            let movie = createMovie(userMovieData, apiMovieData)
+            return movie
         })
     }
 
-    function removeFromWatchList(id) {
-        fetch(BACKEND_URL+`/movies/${id}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+    // function fetchMovieData(movie) { 
+    //     if(!(typeof movie === 'string' || movie instanceof String)) {
+    //         if(movie.attributes.to_watch === true) {
+    //             return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+    //             .then(function(response) {
+    //                 return response.json()
+    //             })
+    //             .then(function(json) {
+    //                 createMovieCard(json)
+    //             })
+    //         } else {
+    //             return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+    //             .then(function(response) {
+    //                 return response.json()
+    //             })
+    //             .then(function(json) {
+    //                 createWatchedCard(json)
+    //             })
+    //         }
+    //     } else {
+    //         return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
+    //         .then(function(response) {
+    //             return response.json()
+    //         })
+    //         .then(function(json) {
+    //             json.results.forEach(movie => {
+    //                 createSearchCard(movie)
+    //         })
+    //     })
+    // }}
 
-            body: JSON.stringify({
-                "tmdb_id": id
-            })
-        })
-        .then (removeCard(id))
-    }
+    // function addToWatchList(id) {
+    //     fetch(BACKEND_URL+`/movies`, {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
 
-    function moveToWatched(id) {
-        fetch(BACKEND_URL+`/movies/${id}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+    //         body: JSON.stringify({
+    //             "tmdb_id": id,
+    //             "to_watch": true,
+    //             "watched": false
+    //         })
+    //     })
+    //     .then (response => response.json())
+    //     .then (json => {
+    //         fetchMovieData(json['data'])
+    //     })
+    // }
 
-            body: JSON.stringify({
-                "tmdb_id": id,
-                "watched": true,
-                "to_watch": false
-            })
-        })
-        .then (response => response.json())
-        .then (json => {
-            fetchMovieData(json['data'][0])
-        })
-        .then (removeCard(id))
-    }
+    // function removeFromWatchList(id) {
+    //     fetch(BACKEND_URL+`/movies/${id}`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
+
+    //         body: JSON.stringify({
+    //             "tmdb_id": id
+    //         })
+    //     })
+    //     .then (removeCard(id))
+    // }
+
+    // function moveToWatched(id) {
+    //     fetch(BACKEND_URL+`/movies/${id}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
+
+    //         body: JSON.stringify({
+    //             "tmdb_id": id,
+    //             "watched": true,
+    //             "to_watch": false
+    //         })
+    //     })
+    //     .then (response => response.json())
+    //     .then (json => {
+    //         fetchMovieData(json['data'][0])
+    //     })
+    //     .then (removeCard(id))
+    // }
 
     function removeCard(id) {
         let card = document.getElementById(id).parentElement
