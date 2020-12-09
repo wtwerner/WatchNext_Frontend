@@ -9,7 +9,6 @@ class Movie {
     }
 
     createCard(){
-        console.log(this)
         let card = new Card(this)
         if(this.to_watch = true){
             card.createWatchListCard()
