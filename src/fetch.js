@@ -20,6 +20,6 @@ function fetchMovieData(movie){
     .then(function(json) {
         let apiMovieData = json
         let newMovie = createMovie(userMovieData, apiMovieData)
-        return newMovie
+        newMovie.createCard()
     })
 }

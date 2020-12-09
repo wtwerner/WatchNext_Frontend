@@ -9,12 +9,14 @@ class Movie {
     }
 
     createCard(){
+        console.log(this)
+        let card = new Card(this)
         if(this.to_watch = true){
-            createWatchListCard(this)
+            card.createWatchListCard()
         } else if(this.watched = true){
-            createWatchedCard(this)
+            card.createWatchedCard()
         } else {
-            createSearchCard(this)
+            card.createSearchCard()
         }
     }
 
