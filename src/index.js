@@ -246,19 +246,6 @@ document.addEventListener("DOMContentLoaded", function(){
         })
     }
 
-    function fetchMovieData(movie){
-        let userMovieData = movie
-        return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
-        .then(function(response) {
-            return response.json()
-        })
-        .then(function(json) {
-            let apiMovieData = json
-            let movie = createMovie(userMovieData, apiMovieData)
-            return movie
-        })
-    }
-
     // function fetchMovieData(movie) { 
     //     if(!(typeof movie === 'string' || movie instanceof String)) {
     //         if(movie.attributes.to_watch === true) {
