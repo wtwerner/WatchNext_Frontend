@@ -329,8 +329,6 @@ function removeCard(id) {
     card.remove()
 }
 
-window.onload = function() {
-    searchView.hidden = true
-    watchedView.hidden = true
-    fetchMovies()
-};
+searchView.hidden = true
+watchedView.hidden = true
+fetchMovies()
