@@ -1,8 +1,16 @@
+const allCards = new Set()
+
 class Card {
     constructor(movie) {
         this.movieData = movie
+        this.addToSet()
+        console.log(allCards)
     }
 
+    addToSet(){
+        allCards.add(this)
+    }
+    
     createWatchListCard() {
         console.log(this)
         let main = document.getElementById("main");
@@ -167,6 +175,11 @@ class Card {
         div.appendChild(footer)
         column.appendChild(div)
         main.appendChild(column)
+    }
+
+    removeCard() {
+        let card = document.getElementById(this.movieData.tmdb_id).parentElement
+        card.remove()
     }
 }
 
