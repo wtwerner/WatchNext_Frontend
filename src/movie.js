@@ -1,17 +1,19 @@
 class Movie {
-    constructor(title, release_date, poster_path, tmdb_id, watched, to_watch){
-        this.title = title;
-        this.release_date = release_date;
-        this.poster_path = poster_path;
-        this.tmdb_id = tmdb_id;
-        this.watched = watched;
-        this.to_watch = to_watch;
+    constructor(userMovieData, apiMovieData, card = null){
+        this.title = apiMovieData.title,
+        this.release_date = apiMovieData.release_date,
+        this.poster_path = apiMovieData.poster_path,
+        this.tmdb_id = userMovieData.attributes.tmdb_id,
+        this.watched = userMovieData.attributes.watched,
+        this.to_watch = userMovieData.attributes.to_watch
+        this.card = card
     }
 
     createCard(){
-        let card = new Card(this)
+        this.card = new Card(this)
         if(this.to_watch = true){
-            card.createWatchListCard()
+            this.card.createWatchListCard()
+            console.log(this)
         } else if(this.watched = true){
             card.createWatchedCard()
         } else {
@@ -57,7 +59,7 @@ class Movie {
         .then (json => {
             fetchMovieData(json['data'][0])
         })
-        .then (removeCard(this.tmdb_id))
+        .then (this.card.removeCard())
     }
 
     removeFromWatchList(){
@@ -77,12 +79,5 @@ class Movie {
 }
 
 function createMovie(userMovieData, apiMovieData){
-    return new Movie(
-        apiMovieData.title,
-        apiMovieData.release_date,
-        apiMovieData.poster_path,
-        userMovieData.attributes.tmdb_id,
-        userMovieData.attributes.watched,
-        userMovieData.attributes.to_watch
-    )
+    return new Movie(userMovieData, apiMovieData)
 }

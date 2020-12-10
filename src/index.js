@@ -102,65 +102,39 @@ watchedNavButton.addEventListener('click', function(event) {
 //     })
 // }}
 
-// function addToWatchList(id) {
-//     fetch(BACKEND_URL+`/movies`, {
-//         method: 'POST',
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accept": "application/json"
-//         },
+function addToWatchList(id) {
+    fetch(BACKEND_URL+`/movies`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
 
-//         body: JSON.stringify({
-//             "tmdb_id": id,
-//             "to_watch": true,
-//             "watched": false
-//         })
-//     })
-//     .then (response => response.json())
-//     .then (json => {
-//         fetchMovieData(json['data'])
-//     })
-// }
+        body: JSON.stringify({
+            "tmdb_id": id,
+            "to_watch": true,
+            "watched": false
+        })
+    })
+    .then (response => response.json())
+    .then (json => {
+        fetchMovieData(json['data'])
+    })
+}
 
-// function removeFromWatchList(id) {
-//     fetch(BACKEND_URL+`/movies/${id}`, {
-//         method: 'DELETE',
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accept": "application/json"
-//         },
+function removeFromWatchList(id) {
+    fetch(BACKEND_URL+`/movies/${id}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
 
-//         body: JSON.stringify({
-//             "tmdb_id": id
-//         })
-//     })
-//     .then (removeCard(id))
-// }
-
-// function moveToWatched(id) {
-//     fetch(BACKEND_URL+`/movies/${id}`, {
-//         method: 'PUT',
-//         headers: {
-//             "Content-Type": "application/json",
-//             "Accept": "application/json"
-//         },
-
-//         body: JSON.stringify({
-//             "tmdb_id": id,
-//             "watched": true,
-//             "to_watch": false
-//         })
-//     })
-//     .then (response => response.json())
-//     .then (json => {
-//         fetchMovieData(json['data'][0])
-//     })
-//     .then (removeCard(id))
-// }
-
-function removeCard(id) {
-    let card = document.getElementById(id).parentElement
-    card.remove()
+        body: JSON.stringify({
+            "tmdb_id": id
+        })
+    })
+    .then (removeCard(id))
 }
 
 searchView.hidden = true
