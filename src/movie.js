@@ -81,3 +81,14 @@ class UserMovie extends Movie{
         .then (removeCard(this.tmdb_id))
     }
 }
+
+class SearchMovie extends Movie {
+    constructor(apiMovieData){
+        super(apiMovieData)
+    }
+
+    createCard() {
+        this.card = new Card(this)
+        this.card.createSearchCard()
+    }
+}

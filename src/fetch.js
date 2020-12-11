@@ -30,7 +30,7 @@ function fetchMovieData(movie){
         })
         .then(function(json) {
             json.results.forEach(movie => {
-                let newMovie = createMovie(undefined, apiMovieData)
+                let newMovie = new SearchMovie(movie)
                 newMovie.createCard()
             })
         })
