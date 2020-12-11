@@ -1,15 +1,7 @@
-const allCards = new Set()
-
 class Card {
     constructor(movie, element = null) {
         this.movieData = movie
         this.element = element
-        this.addToSet()
-        console.log(allCards)
-    }
-
-    addToSet(){
-        allCards.add(this)
     }
     
     createWatchListCard() {
