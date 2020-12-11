@@ -171,7 +171,7 @@ class Card {
     }
 
     removeCard() {
-        let card = document.getElementById(this.movieData.tmdb_id).parentElement
+        let card = document.getAttribute('data-tmdbid', this.id).parentElement
         card.remove()
     }
 }

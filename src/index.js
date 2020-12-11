@@ -123,6 +123,7 @@ function addToWatchList(id) {
 }
 
 function removeFromWatchList(id) {
+    let card = document.querySelector(`[data-tmdbid=${id}]`)
     fetch(BACKEND_URL+`/movies/${id}`, {
         method: 'DELETE',
         headers: {
@@ -134,7 +135,9 @@ function removeFromWatchList(id) {
             "tmdb_id": id
         })
     })
-    .then (removeCard(id))
+    .then (
+        card.removeCard()
+    )
 }
 
 searchView.hidden = true

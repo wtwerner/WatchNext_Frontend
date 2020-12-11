@@ -79,7 +79,9 @@ class UserMovie extends Movie{
                 "tmdb_id": this.tmdb_id
             })
         })
-        .then (removeCard(this.tmdb_id))
+        .then (
+            this.card.removeCard()
+        )
     }
 }
 
