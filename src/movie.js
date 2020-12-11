@@ -3,6 +3,7 @@ class Movie {
         this.title = apiMovieData.title;
         this.release_date = apiMovieData.release_date;
         this.poster_path = apiMovieData.poster_path;
+        this.id = apiMovieData.id
         this.card = card
     }
 }

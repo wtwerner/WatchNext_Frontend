@@ -135,14 +135,14 @@ class Card {
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
         figure.addEventListener('click', function() {
-            window.open(`${MOVIE_URL+this.movieData.id}`, '_blank');
+            window.open(`${MOVIE_URL+div.getAttribute('data-tmdbid')}`, '_blank');
         })
 
         content.className = "card-content"
 
         column.className = "column is-one-quarter";
         div.className = "card";
-        div.id = this.movieData.id;
+        div.setAttribute('data-tmdbid', this.movieData.id)
 
         pTag.className = "title is-7"
         pTag.innerHTML = this.movieData.title+" ("+this.movieData.release_date.substring(0,4)+")";
