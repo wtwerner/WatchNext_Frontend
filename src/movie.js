@@ -1,23 +1,27 @@
 class Movie {
-    constructor(userMovieData, apiMovieData, card = null){
-        this.title = apiMovieData.title,
-        this.release_date = apiMovieData.release_date,
-        this.poster_path = apiMovieData.poster_path,
-        this.tmdb_id = userMovieData.attributes.tmdb_id,
-        this.watched = userMovieData.attributes.watched,
-        this.to_watch = userMovieData.attributes.to_watch
+    constructor(apiMovieData, card = null) {
+        this.title = apiMovieData.title;
+        this.release_date = apiMovieData.release_date;
+        this.poster_path = apiMovieData.poster_path;
         this.card = card
+    }
+}
+
+class UserMovie extends Movie{
+    constructor(userMovieData, apiMovieData){
+        super(apiMovieData);
+        this.tmdb_id = userMovieData.attributes.tmdb_id;
+        this.watched = userMovieData.attributes.watched;
+        this.to_watch = userMovieData.attributes.to_watch;
     }
 
     createCard(){
         this.card = new Card(this)
-        if(this.to_watch = true){
+        if(this.to_watch === true){
             this.card.createWatchListCard()
             console.log(this)
-        } else if(this.watched = true){
-            card.createWatchedCard()
         } else {
-            card.createSearchCard()
+            this.card.createWatchedCard()
         }
     }
 
@@ -76,8 +80,4 @@ class Movie {
         })
         .then (removeCard(this.tmdb_id))
     }
-}
-
-function createMovie(userMovieData, apiMovieData){
-    return new Movie(userMovieData, apiMovieData)
 }

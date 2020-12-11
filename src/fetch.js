@@ -12,14 +12,27 @@ function fetchMovies() {
 }
 
 function fetchMovieData(movie){
-    let userMovieData = movie
-    return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
-    .then(function(response) {
-        return response.json()
-    })
-    .then(function(json) {
-        let apiMovieData = json
-        let newMovie = createMovie(userMovieData, apiMovieData)
-        newMovie.createCard()
-    })
+    if(!(typeof movie === 'string' || movie instanceof String)) {
+        let userMovieData = movie
+        return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+        .then(function(response) {
+            return response.json()
+        })
+        .then(function(json) {
+            let apiMovieData = json
+            let newMovie = new UserMovie(userMovieData, apiMovieData)
+            newMovie.createCard()
+        })
+    } else {
+        return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
+        .then(function(response) {
+            return response.json()
+        })
+        .then(function(json) {
+            json.results.forEach(movie => {
+                let newMovie = createMovie(undefined, apiMovieData)
+                newMovie.createCard()
+            })
+        })
+    }
 }

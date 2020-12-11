@@ -1,8 +1,9 @@
 const allCards = new Set()
 
 class Card {
-    constructor(movie) {
+    constructor(movie, element = null) {
         this.movieData = movie
+        this.element = element
         this.addToSet()
         console.log(allCards)
     }
@@ -26,7 +27,7 @@ class Card {
         img.src = IMG_URL + this.movieData.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
-        figure.addEventListener('click', function(event) {
+        figure.addEventListener('click', function() {
             window.open(`${MOVIE_URL+this.movieData.id}`, '_blank');
         })
 
@@ -84,7 +85,7 @@ class Card {
         img.src = IMG_URL + this.movieData.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
-        figure.addEventListener('click', function(event) {
+        figure.addEventListener('click', function() {
             window.open(`${MOVIE_URL+this.movieData.id}`, '_blank');
         })
 
@@ -141,7 +142,7 @@ class Card {
         img.src = IMG_URL + this.movieData.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
-        figure.addEventListener('click', function(event) {
+        figure.addEventListener('click', function() {
             window.open(`${MOVIE_URL+this.movieData.id}`, '_blank');
         })
 
