@@ -5,7 +5,6 @@ class Card {
     }
     
     createWatchListCard() {
-        console.log(this)
         let main = document.getElementById("main");
         let column = document.createElement("div");
         let div = document.createElement("div");

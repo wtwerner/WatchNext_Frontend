@@ -36,3 +36,41 @@ function fetchMovieData(movie){
         })
     }
 }
+
+function addToWatchList(id) {
+    fetch(BACKEND_URL+`/movies`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+
+        body: JSON.stringify({
+            "tmdb_id": id,
+            "to_watch": true,
+            "watched": false
+        })
+    })
+    .then (response => response.json())
+    .then (json => {
+        fetchMovieData(json['data'])
+    })
+}
+
+function removeFromWatchList(id) {
+    let card = document.querySelector(`[data-tmdbid="${id}"]`).parentElement
+    fetch(BACKEND_URL+`/movies/${id}`, {
+        method: 'DELETE',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+
+        body: JSON.stringify({
+            "tmdb_id": id
+        })
+    })
+    .then (
+        card.remove()
+    )
+}
