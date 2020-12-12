@@ -26,63 +26,63 @@ class UserMovie extends Movie{
         }
     }
 
-    addToWatchList(){
-        fetch(BACKEND_URL+`/movies`, {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+    // addToWatchList(){
+    //     fetch(BACKEND_URL+`/movies`, {
+    //         method: 'POST',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
 
-            body: JSON.stringify({
-                "tmdb_id": this.tmdb_id,
-                "to_watch": true,
-                "watched": false
-            })
-        })
-        .then (response => response.json())
-        .then (json => {
-            fetchMovieData(json['data'])
-        })
-    }
+    //         body: JSON.stringify({
+    //             "tmdb_id": this.tmdb_id,
+    //             "to_watch": true,
+    //             "watched": false
+    //         })
+    //     })
+    //     .then (response => response.json())
+    //     .then (json => {
+    //         fetchMovieData(json['data'])
+    //     })
+    // }
 
-    moveToWatched(){
-        fetch(BACKEND_URL+`/movies/${this.tmdb_id}`, {
-            method: 'PUT',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+    // moveToWatched(){
+    //     fetch(BACKEND_URL+`/movies/${this.tmdb_id}`, {
+    //         method: 'PUT',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
 
-            body: JSON.stringify({
-                "tmdb_id": this.tmdb_id,
-                "watched": true,
-                "to_watch": false
-            })
-        })
-        .then (response => response.json())
-        .then (json => {
-            fetchMovieData(json['data'][0])
-        })
-        .then (this.card.removeCard())
-    }
+    //         body: JSON.stringify({
+    //             "tmdb_id": this.tmdb_id,
+    //             "watched": true,
+    //             "to_watch": false
+    //         })
+    //     })
+    //     .then (response => response.json())
+    //     .then (json => {
+    //         fetchMovieData(json['data'][0])
+    //     })
+    //     .then (this.card.removeCard())
+    // }
 
-    removeFromWatchList(){
-        fetch(BACKEND_URL+`/movies/${this.tmdb_id}`, {
-            method: 'DELETE',
-            headers: {
-                "Content-Type": "application/json",
-                "Accept": "application/json"
-            },
+    // removeFromWatchList(){
+    //     fetch(BACKEND_URL+`/movies/${this.tmdb_id}`, {
+    //         method: 'DELETE',
+    //         headers: {
+    //             "Content-Type": "application/json",
+    //             "Accept": "application/json"
+    //         },
 
-            body: JSON.stringify({
-                "tmdb_id": this.tmdb_id
-            })
-        })
-        .then (
-            this.card.removeCard()
-        )
-    }
+    //         body: JSON.stringify({
+    //             "tmdb_id": this.tmdb_id
+    //         })
+    //     })
+    //     .then (
+    //         this.card.removeCard()
+    //     )
+    // }
 }
 
 class SearchMovie extends Movie {
