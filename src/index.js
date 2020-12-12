@@ -123,7 +123,7 @@ function addToWatchList(id) {
 }
 
 function removeFromWatchList(id) {
-    let card = document.querySelector(`[data-tmdbid=${id}]`)
+    let card = document.querySelector(`[data-tmdbid="${id}"]`).parentElement
     fetch(BACKEND_URL+`/movies/${id}`, {
         method: 'DELETE',
         headers: {
@@ -136,7 +136,7 @@ function removeFromWatchList(id) {
         })
     })
     .then (
-        card.removeCard()
+        card.remove()
     )
 }
 

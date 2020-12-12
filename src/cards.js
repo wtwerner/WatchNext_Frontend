@@ -27,7 +27,7 @@ class Card {
 
         column.className = "column is-one-quarter";
         div.className = "card";
-        div.id = this.movieData.id;
+        div.setAttribute('data-tmdbid', this.movieData.id)
 
         pTag.className = "title is-7"
         pTag.innerHTML = this.movieData.title+" ("+this.movieData.release_date.substring(0,4)+")";
@@ -85,7 +85,7 @@ class Card {
 
         column.className = "column is-one-quarter";
         div.className = "card";
-        div.id = this.movieData.id;
+        div.setAttribute('data-tmdbid', this.movieData.id)
 
         pTag.className = "title is-7"
         pTag.innerHTML = this.movieData.title+" ("+this.movieData.release_date.substring(0,4)+")";
