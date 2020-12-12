@@ -174,34 +174,3 @@ class Card {
         card.remove()
     }
 }
-
-// function createCardElements() {
-//     let column = document.createElement("div");
-//     let div = document.createElement("div");
-//     let imgDiv = document.createElement("div");
-//     let figure = document.createElement("figure");
-//     let content = document.createElement("div")
-//     let pTag = document.createElement("p");
-//     let img = document.createElement("img");
-//     let footer = document.createElement("footer");
-// }
-
-
-
-// let column = document.createElement("div");
-// let div = document.createElement("div");
-// let imgDiv = document.createElement("div");
-// let figure = document.createElement("figure");
-// let content = document.createElement("div")
-// let pTag = document.createElement("p");
-// let img = document.createElement("img");
-// let footer = document.createElement("footer")
-
-// let column = document.createElement("div");
-// let div = document.createElement("div");
-// let imgDiv = document.createElement("div");
-// let figure = document.createElement("figure");
-// let content = document.createElement("div")
-// let pTag = document.createElement("p");
-// let img = document.createElement("img");
-// let footer = document.createElement("footer")
