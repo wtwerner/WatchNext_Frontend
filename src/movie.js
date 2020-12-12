@@ -20,7 +20,6 @@ class UserMovie extends Movie{
         this.card = new Card(this)
         if(this.to_watch === true){
             this.card.createWatchListCard()
-            console.log(this)
         } else {
             this.card.createWatchedCard()
         }

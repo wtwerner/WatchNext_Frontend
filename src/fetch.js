@@ -12,13 +12,11 @@ function fetchMovies() {
 }
 
 function fetchMovie(id) {
-    console.log(id)
     return fetch(BACKEND_URL+'/movies/'+id)
     .then(function(response) {
         return response.json()
     })
     .then(function(json) {
-        console.log(json)
         fetchMovieData(json['data'][0])
     })
 }
@@ -37,7 +35,6 @@ function fetchMovieData(movie){
         })
     } else {
         let userMovieData = movie
-        console.log(movie)
         return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
         .then(function(response) {
             return response.json()
