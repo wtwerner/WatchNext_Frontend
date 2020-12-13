@@ -37,7 +37,7 @@ class Card {
         watchedLink.id = "button-watched"
         watchedLink.innerHTML = "Watched"
         watchedLink.className = "card-footer-item"
-        watchedLink.setAttribute("movie_id", this.movieData.id)
+        watchedLink.setAttribute("movie_id", this.movieData.tmdb_id)
         watchedLink.addEventListener('click', function(event) {
             moveToWatched(event.target.attributes.movie_id.value)
         })
