@@ -120,7 +120,6 @@ class Card {
     }
 
     createSearchCard() {
-        console.log(this)
         let main = document.getElementById("search-results");
         let column = document.createElement("div");
         let div = document.createElement("div");
@@ -142,7 +141,7 @@ class Card {
 
         column.className = "column is-one-quarter";
         div.className = "card";
-        div.setAttribute('data-tmdbid', this.movieData.id)
+        div.setAttribute('data-tmdbid', this.movieData.tmdb_id)
 
         pTag.className = "title is-7"
         pTag.innerHTML = this.movieData.title+" ("+this.movieData.release_date.substring(0,4)+")";
@@ -155,7 +154,7 @@ class Card {
         watchListButton.className = "button card-footer-item"
         watchListButton.setAttribute("movie_id", this.movieData.tmdb_id)
         watchListButton.addEventListener('click', function(event) {
-            moveToWatched(event.target.attributes.movie_id.value);
+            fetchMovieData(event.target.attributes.movie_id.value);
             watchListButton.innerHTML = "Added to watch list"
         })
 

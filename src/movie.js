@@ -6,6 +6,11 @@ class Movie{
         this.release_date = movieData.release_date;
         this.vote_average = movieData.vote_average;
         this.vote_count = movieData.vote_count;
+        if(movieData.tmdb_id){
+            this.tmdb_id = movieData.tmdb_id;
+        } else {
+            this.tmdb_id = movieData.id;
+        }
     }
 }
 
@@ -16,11 +21,10 @@ class UserMovie extends Movie{
         this.watched = movieData.watched;
         this.to_watch = movieData.to_watch;
         this.genres = movieData.genres;
-        this.tmdb_id = movieData.tmdb_id;
+        // this.tmdb_id = movieData.tmdb_id;
     }
 
     createCard(){
-        console.log(this)
         this.card = new Card(this)
         if(this.to_watch === true){
             this.card.createWatchListCard()
@@ -32,10 +36,9 @@ class UserMovie extends Movie{
 
 class SearchMovie extends UserMovie {
     constructor(movieData){
-        console.log(movieData)
         super(movieData);
         this.genres = movieData.genre_ids;
-        this.tmdb_id = movieData.id;
+        // this.tmdb_id = movieData.id;
     }
 
     createCard() {

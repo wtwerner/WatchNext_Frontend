@@ -28,7 +28,6 @@ function searchMovie(string){
         return response.json()
     })
     .then(function(json) {
-        console.log(json)
         json.results.forEach(movie => {
             let newMovie = new SearchMovie(movie)
             newMovie.createCard()
@@ -62,9 +61,21 @@ function searchMovie(string){
 //         })
 //     }
 // }
+function fetchMovieData(id) {
+    return fetch(TMDB_URL+'movie/'+id+TMDB_APPEND)
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(json) {
+        let newMovie = new UserMovie(json)
+        newMovie.watched = false
+        newMovie.to_watch = true
+        createMovie(newMovie)
+        newMovie.createCard()
+    })
+}
 
 function createMovie(movie) {
-    console.log(movie)
     fetch(BACKEND_URL+`/movies`, {
         method: 'POST',
         headers: {
@@ -73,21 +84,21 @@ function createMovie(movie) {
         },
 
         body: JSON.stringify({
-            "tmdb_id": movie.id,
+            "tmdb_id": movie.tmdb_id,
             "title": movie.title,
+            "poster_path": movie.poster_path,
+            "vote_average": movie.vote_average,
+            "vote_count": movie.vote_count,
             "overview": movie.overview,
-            "to_watch": true,
-            "watched": false
+            "to_watch": movie.to_watch,
+            "release_date": movie.release_date,
+            "watched": movie.watched
         })
     })
     .then (response => response.json())
-    .then (json => {
-        fetchMovieData(json['data'])
-    })
 }
 
 function removeFromWatchList(id) {
-    console.log(id)
     let card = document.querySelector(`[data-tmdbid="${id}"]`).parentElement
     fetch(BACKEND_URL+`/movies/${id}`, {
         method: 'DELETE',
@@ -113,14 +124,14 @@ function moveToWatched(id){
         },
 
         body: JSON.stringify({
-            "tmdb_id": this.tmdb_id,
+            "tmdb_id": id,
             "watched": true,
             "to_watch": false
         })
     })
     .then (response => response.json())
     .then (json => {
-        fetchMovie(json['data'][0]['attributes']['tmdb_id'])
+        console.log(json)
     })
     .then (card.remove())
 }
