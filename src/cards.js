@@ -19,14 +19,14 @@ class Card {
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
         figure.addEventListener('click', function() {
-            window.open(`${MOVIE_URL+this.movieData.id}`, '_blank');
+            window.open(`${MOVIE_URL+this.movieData.tmdb_id}`, '_blank');
         })
 
         content.className = "card-content"
 
         column.className = "column is-one-quarter";
         div.className = "card";
-        div.setAttribute('data-tmdbid', this.movieData.id)
+        div.setAttribute('data-tmdbid', this.movieData.tmdb_id)
 
         pTag.className = "title is-7"
         pTag.innerHTML = this.movieData.title+" ("+this.movieData.release_date.substring(0,4)+")";
@@ -45,7 +45,7 @@ class Card {
         removeLink.id = "button-remove"
         removeLink.innerHTML = "Remove"
         removeLink.className = "card-footer-item"
-        removeLink.setAttribute("movie_id", this.movieData.id)
+        removeLink.setAttribute("movie_id", this.movieData.tmdb_id)
         removeLink.addEventListener('click', function(event) {
             removeFromWatchList(event.target.attributes.movie_id.value)
         })
@@ -120,6 +120,7 @@ class Card {
     }
 
     createSearchCard() {
+        console.log(this)
         let main = document.getElementById("search-results");
         let column = document.createElement("div");
         let div = document.createElement("div");
@@ -152,9 +153,9 @@ class Card {
         watchListButton.id = "button-add"
         watchListButton.innerHTML = "Add to watchlist"
         watchListButton.className = "button card-footer-item"
-        watchListButton.setAttribute("movie_id", this.movieData.id)
+        watchListButton.setAttribute("movie_id", this.movieData.tmdb_id)
         watchListButton.addEventListener('click', function(event) {
-            addToWatchList(event.target.attributes.movie_id.value);
+            moveToWatched(event.target.attributes.movie_id.value);
             watchListButton.innerHTML = "Added to watch list"
         })
 

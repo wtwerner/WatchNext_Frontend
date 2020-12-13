@@ -1,20 +1,22 @@
-class Movie {
-    constructor(apiMovieData, card = null) {
-        this.title = apiMovieData.title;
-        this.release_date = apiMovieData.release_date;
-        this.poster_path = apiMovieData.poster_path;
-        this.id = apiMovieData.id
-        this.genres = apiMovieData.genres
-        this.card = card
+class Movie{
+    constructor(movieData){
+        this.title = movieData.title;
+        this.overview = movieData.overview;
+        this.poster_path = movieData.poster_path;
+        this.release_date = movieData.release_date;
+        this.vote_average = movieData.vote_average;
+        this.vote_count = movieData.vote_count;
     }
 }
 
+
 class UserMovie extends Movie{
-    constructor(userMovieData, apiMovieData){
-        super(apiMovieData);
-        this.tmdb_id = userMovieData.attributes.tmdb_id;
-        this.watched = userMovieData.attributes.watched;
-        this.to_watch = userMovieData.attributes.to_watch;
+    constructor(movieData){
+        super(movieData)
+        this.watched = movieData.watched;
+        this.to_watch = movieData.to_watch;
+        this.genres = movieData.genres;
+        this.tmdb_id = movieData.tmdb_id;
     }
 
     createCard(){
@@ -28,9 +30,12 @@ class UserMovie extends Movie{
     }
 }
 
-class SearchMovie extends Movie {
-    constructor(apiMovieData){
-        super(apiMovieData)
+class SearchMovie extends UserMovie {
+    constructor(movieData){
+        console.log(movieData)
+        super(movieData);
+        this.genres = movieData.genre_ids;
+        this.tmdb_id = movieData.id;
     }
 
     createCard() {

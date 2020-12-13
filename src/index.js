@@ -18,7 +18,7 @@ searchButton.addEventListener('click', function(event) {
     let input = search.value;
 
     if (input) {
-        fetchMovieData(input);
+        searchMovie(input);
     }
     search.value = "";
 }, false);
@@ -31,7 +31,7 @@ search.addEventListener('keypress', function(event) {
         let input = search.value;
 
         if (input) {
-            fetchMovieData(input);
+            searchMovie(input);
         }
         search.value = "";
     }

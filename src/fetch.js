@@ -6,7 +6,8 @@ function fetchMovies() {
     .then(function(json) {
         let movies = json['data']
         movies.forEach(movie => {
-            fetchMovieData(movie)
+            let m = new UserMovie(movie.attributes)
+            m.createCard()
         })
     })
 }
@@ -21,33 +22,49 @@ function fetchMovie(id) {
     })
 }
 
-function fetchMovieData(movie){
-    if((typeof movie === 'string' || movie instanceof String)) {
-        return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
-        .then(function(response) {
-            return response.json()
-        })
-        .then(function(json) {
-            json.results.forEach(movie => {
-                let newMovie = new SearchMovie(movie)
-                newMovie.createCard()
-            })
-        })
-    } else {
-        let userMovieData = movie
-        return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
-        .then(function(response) {
-            return response.json()
-        })
-        .then(function(json) {
-            let apiMovieData = json
-            let newMovie = new UserMovie(userMovieData, apiMovieData)
+function searchMovie(string){
+    return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+string)
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(json) {
+        console.log(json)
+        json.results.forEach(movie => {
+            let newMovie = new SearchMovie(movie)
             newMovie.createCard()
         })
-    }
+    })
 }
 
-function addToWatchList(id) {
+// function fetchMovieData(movie){
+//     if((typeof movie === 'string' || movie instanceof String)) {
+//         return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
+//         .then(function(response) {
+//             return response.json()
+//         })
+//         .then(function(json) {
+//             json.results.forEach(movie => {
+//                 let newMovie = new SearchMovie(movie)
+//                 newMovie.createCard()
+//             })
+//         })
+//     } else {
+//         let userMovieData = movie
+//         return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
+//         .then(function(response) {
+//             return response.json()
+//         })
+//         .then(function(json) {
+//             console.log(json)
+//             let apiMovieData = json
+//             let newMovie = new UserMovie(userMovieData, apiMovieData)
+//             newMovie.createCard()
+//         })
+//     }
+// }
+
+function createMovie(movie) {
+    console.log(movie)
     fetch(BACKEND_URL+`/movies`, {
         method: 'POST',
         headers: {
@@ -56,7 +73,9 @@ function addToWatchList(id) {
         },
 
         body: JSON.stringify({
-            "tmdb_id": id,
+            "tmdb_id": movie.id,
+            "title": movie.title,
+            "overview": movie.overview,
             "to_watch": true,
             "watched": false
         })
@@ -68,6 +87,7 @@ function addToWatchList(id) {
 }
 
 function removeFromWatchList(id) {
+    console.log(id)
     let card = document.querySelector(`[data-tmdbid="${id}"]`).parentElement
     fetch(BACKEND_URL+`/movies/${id}`, {
         method: 'DELETE',
