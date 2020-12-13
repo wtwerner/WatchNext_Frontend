@@ -4,6 +4,7 @@ class Movie {
         this.release_date = apiMovieData.release_date;
         this.poster_path = apiMovieData.poster_path;
         this.id = apiMovieData.id
+        this.genres = apiMovieData.genres
         this.card = card
     }
 }
@@ -17,6 +18,7 @@ class UserMovie extends Movie{
     }
 
     createCard(){
+        console.log(this)
         this.card = new Card(this)
         if(this.to_watch === true){
             this.card.createWatchListCard()
