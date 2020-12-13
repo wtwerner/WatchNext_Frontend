@@ -6,7 +6,7 @@ function fetchMovies() {
     .then(function(json) {
         let movies = json['data']
         movies.forEach(movie => {
-            let m = new UserMovie(movie.attributes)
+            let m = new UserMovie(movie.attributes, parseInt(movie.id, 10))
             m.createCard()
         })
     })
@@ -35,32 +35,6 @@ function searchMovie(string){
     })
 }
 
-// function fetchMovieData(movie){
-//     if((typeof movie === 'string' || movie instanceof String)) {
-//         return fetch(TMDB_URL+'search/movie'+TMDB_APPEND+'&query='+movie)
-//         .then(function(response) {
-//             return response.json()
-//         })
-//         .then(function(json) {
-//             json.results.forEach(movie => {
-//                 let newMovie = new SearchMovie(movie)
-//                 newMovie.createCard()
-//             })
-//         })
-//     } else {
-//         let userMovieData = movie
-//         return fetch(TMDB_URL+'movie/'+movie.attributes.tmdb_id+TMDB_APPEND)
-//         .then(function(response) {
-//             return response.json()
-//         })
-//         .then(function(json) {
-//             console.log(json)
-//             let apiMovieData = json
-//             let newMovie = new UserMovie(userMovieData, apiMovieData)
-//             newMovie.createCard()
-//         })
-//     }
-// }
 function fetchMovieData(id) {
     return fetch(TMDB_URL+'movie/'+id+TMDB_APPEND)
     .then(function(response) {
@@ -70,8 +44,8 @@ function fetchMovieData(id) {
         let newMovie = new UserMovie(json)
         newMovie.watched = false
         newMovie.to_watch = true
-        createMovie(newMovie)
         newMovie.createCard()
+        createMovie(newMovie)
     })
 }
 
@@ -96,6 +70,21 @@ function createMovie(movie) {
         })
     })
     .then (response => response.json())
+}
+
+function createMovieGenres(genreID, movieID){
+    fetch(BACKEND_URL+`/movie_genres`, {
+        method: 'POST',
+        headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json"
+        },
+
+        body: JSON.stringify({
+            "genre_id": genreID,
+            "movie_id": movieID
+        })
+    });
 }
 
 function removeFromWatchList(id) {

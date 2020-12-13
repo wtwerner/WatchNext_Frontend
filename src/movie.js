@@ -16,12 +16,12 @@ class Movie{
 
 
 class UserMovie extends Movie{
-    constructor(movieData){
-        super(movieData)
+    constructor(movieData, id){
+        super(movieData);
         this.watched = movieData.watched;
         this.to_watch = movieData.to_watch;
         this.genres = movieData.genres;
-        // this.tmdb_id = movieData.tmdb_id;
+        this.db_id = id;
     }
 
     createCard(){
@@ -38,7 +38,6 @@ class SearchMovie extends UserMovie {
     constructor(movieData){
         super(movieData);
         this.genres = movieData.genre_ids;
-        // this.tmdb_id = movieData.id;
     }
 
     createCard() {
