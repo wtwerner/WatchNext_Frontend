@@ -15,11 +15,17 @@ class Card {
         let img = document.createElement("img");
         let footer = document.createElement("footer")
 
+        const modalBackground = document.querySelector('.modal-background')
+        const modal = document.querySelector('.modal')
+
         img.src = IMG_URL + this.movieData.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
         figure.addEventListener('click', function() {
-            window.open(`${MOVIE_URL+div.getAttribute('data-tmdbid')}`, '_blank');
+            modal.classList.add('is-active');
+        })
+        modalBackground.addEventListener('click', function() {
+            modal.classList.remove('is-active')
         })
 
         content.className = "card-content"
