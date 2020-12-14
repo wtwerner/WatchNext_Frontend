@@ -50,7 +50,6 @@ function fetchMovieData(id) {
 }
 
 function createMovie(movie) {
-    console.log(movie.genres)
     fetch(BACKEND_URL+`/movies`, {
         method: 'POST',
         headers: {
