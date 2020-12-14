@@ -61,3 +61,8 @@ watchedNavButton.addEventListener('click', function(event) {
 searchView.hidden = true
 watchedView.hidden = true
 fetchMovies()
+
+// Modal
+const moreInfoButton
+const modalBackground = document.querySelector('.modal-background')
+const modal = document.querySelector('.modal')
