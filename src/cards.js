@@ -84,7 +84,7 @@ class Card {
 
         column.className = "column is-one-quarter";
         div.className = "card";
-        div.setAttribute('data-tmdbid', this.movieData.id)
+        div.setAttribute('data-tmdbid', this.movieData.tmdb_id)
 
         pTag.className = "title is-7"
         pTag.innerHTML = this.movieData.title+" ("+this.movieData.release_date.substring(0,4)+")";
@@ -95,14 +95,14 @@ class Card {
         watchedLink.id = "button-watched"
         watchedLink.innerHTML = "Watched"
         watchedLink.className = "card-footer-item has-text-danger"
-        watchedLink.setAttribute("movie_id", this.movieData.id)
+        watchedLink.setAttribute("movie_id", this.movieData.tmdb_id)
 
 
         let removeLink = document.createElement("a")
         removeLink.id = "button-remove"
         removeLink.innerHTML = "Remove"
         removeLink.className = "card-footer-item"
-        removeLink.setAttribute("movie_id", this.movieData.id)
+        removeLink.setAttribute("movie_id", this.movieData.tmdb_id)
         removeLink.addEventListener('click', function(event) {
             removeFromWatchList(event.target.attributes.movie_id.value)
         })

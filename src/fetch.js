@@ -119,8 +119,8 @@ function moveToWatched(id){
         })
     })
     .then (response => response.json())
-    .then (json => {
-        console.log(json)
+    .then (() => {
+        let destination = document.getElementById("watched")
+        destination.appendChild(card)
     })
-    .then (card.remove())
 }
