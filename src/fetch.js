@@ -121,6 +121,7 @@ function moveToWatched(id){
     })
     .then (response => response.json())
     .then (() => {
+        card.querySelector('#button-watched').className = "card-footer-item has-text-danger"
         let destination = document.getElementById("watched")
         destination.appendChild(card)
     })
