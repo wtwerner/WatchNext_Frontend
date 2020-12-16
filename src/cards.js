@@ -18,10 +18,13 @@ class Card {
         const modalBackground = document.querySelector('.modal-background')
         const modal = document.querySelector('.modal')
 
+        const movie = this.movieData
+
         img.src = IMG_URL + this.movieData.poster_path;
         imgDiv.className = "card-image";
         figure.className = "image is-2by3"
         figure.addEventListener('click', function() {
+            createModal(movie)
             modal.classList.add('is-active');
         })
         modalBackground.addEventListener('click', function() {
@@ -179,4 +182,33 @@ class Card {
         let card = document.getAttribute('data-tmdbid', this.id).parentElement
         card.remove()
     }
+}
+
+function createModal(movie){
+    const modalDiv = document.getElementById('modal-content');
+    const title = document.createElement('p');
+    const div = document.createElement("div");
+    const imgDiv = document.createElement("div");
+    const figure = document.createElement("figure");
+    const content = document.createElement("div");
+    const img = document.createElement("img");
+
+    img.src = IMG_URL + movie.poster_path;
+    imgDiv.className = "card-image";
+    figure.className = "image is-2by3"
+    figure.addEventListener('click', function() {
+        window.open(`${MOVIE_URL+movie.tmdb_id}`, '_blank');
+    })
+
+    content.className = "modal-content"
+
+    title.className = "modal-card-title"
+    title.innerHTML = movie.title
+
+    imgDiv.appendChild(figure)
+    figure.appendChild(img)
+    content.appendChild(title)
+    div.appendChild(imgDiv)
+    div.appendChild(content)
+    modalDiv.appendChild(div)
 }

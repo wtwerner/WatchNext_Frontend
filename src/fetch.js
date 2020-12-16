@@ -12,6 +12,17 @@ function fetchMovies() {
     })
 }
 
+function fetchModalData(id){
+    return fetch(TMDB_URL+'movie/'+id+TMDB_APPEND)
+    .then(function(response) {
+        return response.json()
+    })
+    .then(function(json){
+        let modalMovie = new SearchMovie(json)
+        return modalMovie
+    })
+}
+
 function fetchMovie(id) {
     return fetch(BACKEND_URL+'/movies/'+id)
     .then(function(response) {
