@@ -4017,7 +4017,8 @@ a.list-item {
     .modal-card {
       margin: 0 auto;
       max-height: calc(100vh - 40px);
-      width: 640px; } }
+      width: 75%;
+      padding: 20px; } }
 
 .modal-close {
   background: none;

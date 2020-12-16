@@ -16,6 +16,7 @@ class Card {
         let footer = document.createElement("footer")
 
         const modalBackground = document.querySelector('.modal-background')
+        const modalClose = document.querySelector('.modal-close')
         const modal = document.querySelector('.modal')
 
         const movie = this.movieData
@@ -28,6 +29,9 @@ class Card {
             modal.classList.add('is-active');
         })
         modalBackground.addEventListener('click', function() {
+            modal.classList.remove('is-active')
+        })
+        modalClose.addEventListener('click', function() {
             modal.classList.remove('is-active')
         })
 
@@ -185,32 +189,27 @@ class Card {
 }
 
 function createModal(movie){
-    const modalDiv = document.getElementById('modal-content');
+    const modalDiv = document.getElementById('modal-card');
     modalDiv.innerHTML = ""
 
-    const title = document.createElement('p');
-    const div = document.createElement("div");
-    const imgDiv = document.createElement("div");
-    const figure = document.createElement("figure");
-    const content = document.createElement("div");
-    const img = document.createElement("img");
+    const header = document.createElement('header');
+    const title = document.createElement("p");
+    const body = document.createElement("section");
+    const overview = document.createElement("p")
+    const footer = document.createElement("footer");
 
-    img.src = IMG_URL + movie.poster_path;
-    imgDiv.className = "card-image";
-    figure.className = "image is-2by3"
-    figure.addEventListener('click', function() {
-        window.open(`${MOVIE_URL+movie.tmdb_id}`, '_blank');
-    })
-
-    content.className = "modal-content"
-
+    header.className = "modal-card-head"
     title.className = "modal-card-title"
     title.innerHTML = movie.title
 
-    imgDiv.appendChild(figure)
-    figure.appendChild(img)
-    content.appendChild(title)
-    div.appendChild(imgDiv)
-    div.appendChild(content)
-    modalDiv.appendChild(div)
+    body.className = "modal-card-body"
+    overview.innerHTML = movie.overview
+
+    footer.className = "modal-card-foot"
+
+    header.appendChild(title)
+    body.appendChild(overview)
+
+    modalDiv.appendChild(title)
+    modalDiv.appendChild(body)
 }
