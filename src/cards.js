@@ -186,6 +186,8 @@ class Card {
 
 function createModal(movie){
     const modalDiv = document.getElementById('modal-content');
+    modalDiv.innerHTML = ""
+
     const title = document.createElement('p');
     const div = document.createElement("div");
     const imgDiv = document.createElement("div");
