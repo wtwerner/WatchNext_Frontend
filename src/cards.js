@@ -189,27 +189,51 @@ class Card {
 }
 
 function createModal(movie){
-    const modalDiv = document.getElementById('modal-card');
+    const modalDiv = document.getElementById('modal-content');
     modalDiv.innerHTML = ""
 
-    const header = document.createElement('header');
-    const title = document.createElement("p");
-    const body = document.createElement("section");
-    const overview = document.createElement("p")
-    const footer = document.createElement("footer");
+    const box = document.createElement('div');
+    const media = document.createElement('article');
+    const image = document.createElement('div');
+    const figure = document.createElement('figure');
+    const imgSrc = document.createElement("img");
+    const mediaContent = document.createElement("div");
+    const content = document.createElement("div");
+    const title = document.createElement("h6");
+    const textBlock = document.createElement("div");
+    const text = document.createElement("p");
+    const genreBlock = document.createElement("div");
+    const genre = document.createElement("p");
+    const nav = document.createElement("nav");
 
-    header.className = "modal-card-head"
-    title.className = "modal-card-title"
-    title.innerHTML = movie.title
+    box.className = "box"
 
-    body.className = "modal-card-body"
-    overview.innerHTML = movie.overview
+    media.className = "media"
+    image.className = "media-left"
+    figure.className = "image is-96x96"
+    imgSrc.src = IMG_URL + movie.poster_path
 
-    footer.className = "modal-card-foot"
+    mediaContent.className = "media-content"
+    content.className = "content"
+    title.innerHTML = movie.title+" ("+movie.release_date.substring(0,4)+")";
+    textBlock.className = "block"
+    text.innerHTML = movie.overview
+    genreBlock.classname = "block"
+    genre.innerHTML = movie['genres'][0]['name']
 
-    header.appendChild(title)
-    body.appendChild(overview)
+    nav.className = "level"
 
-    modalDiv.appendChild(title)
-    modalDiv.appendChild(body)
+    figure.appendChild(imgSrc)
+    image.appendChild(figure)
+    content.appendChild(title)
+    textBlock.appendChild(text)
+    genreBlock.appendChild(genre)
+    content.appendChild(textBlock)
+    content.appendChild(genreBlock)
+    mediaContent.appendChild(content)
+    media.appendChild(image)
+    media.appendChild(mediaContent)
+    media.appendChild(nav)
+    box.appendChild(media)
+    modalDiv.appendChild(box)
 }
