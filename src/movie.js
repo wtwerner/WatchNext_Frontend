@@ -29,7 +29,7 @@ class UserMovie extends Movie{
         if(this.to_watch === true){
             this.card.createWatchListCard(this.card.createCardDiv())
         } else {
-            this.card.createWatchedCard()
+            this.card.createWatchedCard(this.card.createCardDiv())
         }
     }
 }
