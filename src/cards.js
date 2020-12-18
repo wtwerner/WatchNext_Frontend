@@ -3,9 +3,8 @@ class Card {
         this.movieData = movie
         this.element = element
     }
-    
-    createWatchListCard() {
-        let main = document.getElementById("main");
+
+    createCardDiv() {
         let column = document.createElement("div");
         let div = document.createElement("div");
         let imgDiv = document.createElement("div");
@@ -62,16 +61,19 @@ class Card {
         removeLink.addEventListener('click', function(event) {
             removeFromWatchList(event.target.attributes.movie_id.value)
         })
-        
-        imgDiv.appendChild(figure)
-        figure.appendChild(img)
-        content.appendChild(pTag)
-        div.appendChild(imgDiv)
-        div.appendChild(content)
-        footer.appendChild(watchedLink)
-        footer.appendChild(removeLink)
-        div.appendChild(footer)
-        column.appendChild(div)
+
+        imgDiv.append(figure)
+        figure.append(img)
+        content.append(pTag)
+        div.append(imgDiv, content, footer)
+        footer.append(watchedLink, removeLink)
+        column.append(div)
+
+        return column
+    }
+
+    createWatchListCard(column) {
+        let main = document.getElementById("main");
         main.appendChild(column)
     }
 
