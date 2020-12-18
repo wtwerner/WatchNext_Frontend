@@ -42,6 +42,6 @@ class SearchMovie extends Movie {
 
     createCard() {
         this.card = new Card(this)
-        this.card.createSearchCard()
+        this.card.createSearchCard(this.card.createCardDiv())
     }
 }
