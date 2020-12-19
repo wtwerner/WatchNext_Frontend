@@ -87,6 +87,8 @@ class Card {
         let footer = column.querySelector(".card-footer")
         footer.innerHTML = ""
 
+        let modal = document.getElementById('modal-content')
+
         let watchListButton = document.createElement("button")
         watchListButton.id = "button-add"
         watchListButton.innerHTML = "Add to watchlist"
@@ -138,7 +140,9 @@ class Card {
         textBlock.className = "block"
         text.innerHTML = movie.overview
         genreBlock.classname = "block"
-        genre.innerHTML = movie['genres'][0]['name']
+        if(movie['genres'][0]['name']) {
+            genre.innerHTML = movie['genres'][0]['name']
+        }
     
         nav.className = "level"
     

@@ -37,7 +37,7 @@ class UserMovie extends Movie{
 class SearchMovie extends Movie {
     constructor(movieData){
         super(movieData);
-        this.genres = movieData.genres;
+        this.genres = movieData.genre_ids
     }
 
     createCard() {

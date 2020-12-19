@@ -44,13 +44,11 @@ function fetchMovieData(id) {
         let newMovie = new UserMovie(json)
         newMovie.watched = false
         newMovie.to_watch = true
-        // newMovie.createCard()
         createMovie(newMovie)
     })
 }
 
 function createMovie(movie) {
-    console.log(movie)
     fetch(BACKEND_URL+`/movies`, {
         method: 'POST',
         headers: {
@@ -110,7 +108,6 @@ function removeFromWatchList(id) {
 }
 
 function moveToWatched(movie){
-    console.log(movie)
     let card = document.querySelector(`[data-tmdbid="${movie.tmdb_id}"]`).parentElement
     fetch(BACKEND_URL+`/movies/${movie.db_id}`, {
         method: 'PUT',
