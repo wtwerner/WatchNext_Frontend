@@ -51,8 +51,8 @@ class Card {
         watchedLink.innerHTML = "Watched"
         watchedLink.className = "card-footer-item"
         watchedLink.setAttribute("movie_id", this.movieData.tmdb_id)
-        watchedLink.addEventListener('click', function(event) {
-            moveToWatched(event.target.attributes.movie_id.value)
+        watchedLink.addEventListener('click', function() {
+            moveToWatched(movie)
         })
         let removeLink = document.createElement("a")
         removeLink.id = "button-remove"
@@ -85,7 +85,6 @@ class Card {
 
     createSearchCard(column) {
         let footer = column.querySelector(".card-footer")
-        console.log(footer)
         footer.innerHTML = ""
 
         let watchListButton = document.createElement("button")

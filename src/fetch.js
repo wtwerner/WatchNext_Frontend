@@ -44,12 +44,13 @@ function fetchMovieData(id) {
         let newMovie = new UserMovie(json)
         newMovie.watched = false
         newMovie.to_watch = true
-        newMovie.createCard()
+        // newMovie.createCard()
         createMovie(newMovie)
     })
 }
 
 function createMovie(movie) {
+    console.log(movie)
     fetch(BACKEND_URL+`/movies`, {
         method: 'POST',
         headers: {
@@ -71,6 +72,10 @@ function createMovie(movie) {
         })
     })
     .then (response => response.json())
+    .then (function(json){
+        movie.db_id = json.data.id
+        movie.createCard()
+    })
 }
 
 function createMovieGenres(genreID, movieID){
@@ -104,9 +109,10 @@ function removeFromWatchList(id) {
     .then (card.remove())
 }
 
-function moveToWatched(id){
-    let card = document.querySelector(`[data-tmdbid="${id}"]`).parentElement
-    fetch(BACKEND_URL+`/movies/${id}`, {
+function moveToWatched(movie){
+    console.log(movie)
+    let card = document.querySelector(`[data-tmdbid="${movie.tmdb_id}"]`).parentElement
+    fetch(BACKEND_URL+`/movies/${movie.db_id}`, {
         method: 'PUT',
         headers: {
             "Content-Type": "application/json",
@@ -114,7 +120,7 @@ function moveToWatched(id){
         },
 
         body: JSON.stringify({
-            "tmdb_id": id,
+            "tmdb_id": movie.tmdb_id,
             "watched": true,
             "to_watch": false
         })
