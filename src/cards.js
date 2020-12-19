@@ -127,6 +127,11 @@ class Card {
         const genre = document.createElement("p");
         const nav = document.createElement("nav");
 
+        let genreArray = []
+        movie.genres.forEach(movieGenre =>{
+            genreArray.push(movieGenre.name)
+        })
+
         box.className = "box"
     
         media.className = "media"
@@ -140,9 +145,11 @@ class Card {
         textBlock.className = "block"
         text.innerHTML = movie.overview
         genreBlock.classname = "block"
-        if(movie['genres'][0]['name']) {
-            genre.innerHTML = movie['genres'][0]['name']
+        genre.className = "genre"
+        if(genreArray) {
+            genre.innerHTML = genreArray.join(" - ")
         }
+
     
         nav.className = "level"
     
