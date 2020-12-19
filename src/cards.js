@@ -87,8 +87,6 @@ class Card {
         let footer = column.querySelector(".card-footer")
         footer.innerHTML = ""
 
-        let modal = document.getElementById('modal-content')
-
         let watchListButton = document.createElement("button")
         watchListButton.id = "button-add"
         watchListButton.innerHTML = "Add to watchlist"
@@ -146,7 +144,7 @@ class Card {
         text.innerHTML = movie.overview
         genreBlock.classname = "block"
         genre.className = "genre"
-        if(genreArray) {
+        if(movie.genres[0]['name']) {
             genre.innerHTML = genreArray.join(" - ")
         }
 
