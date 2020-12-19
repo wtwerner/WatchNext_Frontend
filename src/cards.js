@@ -84,10 +84,9 @@ class Card {
     }
 
     createSearchCard(column) {
-        let main = document.getElementById("search-results");
-        let footer = document.querySelector('.card-footer')
-
-
+        let footer = column.querySelector(".card-footer")
+        console.log(footer)
+        footer.innerHTML = ""
 
         let watchListButton = document.createElement("button")
         watchListButton.id = "button-add"
@@ -99,7 +98,8 @@ class Card {
             watchListButton.innerHTML = "Added to watch list"
         })
 
-        footer.remove()
+        let main = document.getElementById("search-results");
+        footer.append(watchListButton)
         main.appendChild(column)
     }
 
