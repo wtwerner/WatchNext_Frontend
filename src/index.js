@@ -13,7 +13,7 @@ const watchedView = document.getElementById("watched-view")
 
 searchButton.addEventListener('click', function(event) {
     event.preventDefault();
-    const div = document.getElementById("search-results")
+    let div = document.getElementById("search-results")
     div.innerHTML = ""
     let input = search.value;
 
