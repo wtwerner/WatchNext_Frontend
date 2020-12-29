@@ -14,11 +14,11 @@ class Card {
         let img = document.createElement("img");
         let footer = document.createElement("footer")
 
-        const modalBackground = document.querySelector('.modal-background')
-        const modalClose = document.querySelector('.modal-close')
-        const modal = document.querySelector('.modal')
+        let modalBackground = document.querySelector('.modal-background')
+        let modalClose = document.querySelector('.modal-close')
+        let modal = document.querySelector('.modal')
 
-        const movie = this.movieData
+        let movie = this.movieData
         let card = this
 
         img.src = IMG_URL + this.movieData.poster_path;
@@ -75,12 +75,12 @@ class Card {
 
     createWatchListCard(column) {
         let main = document.getElementById("main");
-        main.appendChild(column)
+        main.append(column)
     }
 
     createWatchedCard(column) {
         let main = document.getElementById("watched");
-        main.appendChild(column)
+        main.append(column)
     }
 
     createSearchCard(column) {
@@ -99,7 +99,7 @@ class Card {
 
         let main = document.getElementById("search-results");
         footer.append(watchListButton)
-        main.appendChild(column)
+        main.append(column)
     }
 
     removeCard() {
@@ -108,22 +108,22 @@ class Card {
     }
 
     createModal(movie){
-        const modalDiv = document.getElementById('modal-content');
+        let modalDiv = document.getElementById('modal-content');
         modalDiv.innerHTML = ""
     
-        const box = document.createElement('div');
-        const media = document.createElement('article');
-        const image = document.createElement('div');
-        const figure = document.createElement('figure');
-        const imgSrc = document.createElement("img");
-        const mediaContent = document.createElement("div");
-        const content = document.createElement("div");
-        const title = document.createElement("h6");
-        const textBlock = document.createElement("div");
-        const text = document.createElement("p");
-        const genreBlock = document.createElement("div");
-        const genre = document.createElement("p");
-        const nav = document.createElement("nav");
+        let box = document.createElement('div');
+        let media = document.createElement('article');
+        let image = document.createElement('div');
+        let figure = document.createElement('figure');
+        let imgSrc = document.createElement("img");
+        let mediaContent = document.createElement("div");
+        let content = document.createElement("div");
+        let title = document.createElement("h6");
+        let textBlock = document.createElement("div");
+        let text = document.createElement("p");
+        let genreBlock = document.createElement("div");
+        let genre = document.createElement("p");
+        let nav = document.createElement("nav");
 
         let genreArray = []
         movie.genres.forEach(movieGenre =>{
@@ -151,19 +151,16 @@ class Card {
     
         nav.className = "level"
     
-        figure.appendChild(imgSrc)
-        image.appendChild(figure)
-        content.appendChild(title)
-        textBlock.appendChild(text)
-        genreBlock.appendChild(genre)
-        content.appendChild(textBlock)
-        content.appendChild(genreBlock)
-        mediaContent.appendChild(content)
-        media.appendChild(image)
-        media.appendChild(mediaContent)
-        media.appendChild(nav)
-        box.appendChild(media)
-        modalDiv.appendChild(box)
+        figure.append(imgSrc)
+        image.append(figure)
+        content.append(title)
+        textBlock.append(text)
+        genreBlock.append(genre)
+        content.append(textBlock, genreBlock)
+        mediaContent.append(content)
+        media.append(image, mediaContent, nav)
+        box.append(media)
+        modalDiv.append(box)
     }
 }
 
